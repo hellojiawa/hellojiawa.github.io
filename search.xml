@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[设计模式]]></title>
+    <url>%2F2018%2F11%2F07%2F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[单一设计原则 定义：一个类负责一项职责 优点：可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；提高类的可读性，提高系统的可维护性；变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。 问题：类P在最初设计的时候是遵从单一原则的，后来由于某种原因导致需求变更，需要将类P的职责细分为粒度更低的P1、P2，这个时候就会面临拆分类P或者不拆分两种选择，如果不拆分则会违反单一职责的原则，具体要看实际情况进行处理。 里氏替换原则 定义：子类可以扩展父类的功能，但不能改变父类原有的功能。 优点：子类如果覆盖父类原有的方法，在代码逻辑稍微复杂的时候，容易造成代码运行“失控”，因为这相当于修改了父类的原有功能。如果有这种需求，可以将该方法定义成抽象的。]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[更换电脑后hexo环境配置]]></title>
+    <url>%2F2018%2F11%2F07%2F%E6%9B%B4%E6%8D%A2%E7%94%B5%E8%84%91%E5%90%8Ehexo%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[将你原来电脑上已经配置好并生成的hexo目录拷到你的新电脑上，注意无需拷全部，只拷如下几个目录： 12345_config.ymlpackage.jsonscaffolds/source/themes/ 将这些目录放到一个目录下，如：hexo/ 在你的新电脑上首先配置hexo环境：安装Node.js 安装hexo，执行命令： 1npm install -g hexo 安装好之后，进入hexo/目录 模块安装，执行命令： 1234npm installnpm install hexo-deployer-git --savenpm install hexo-generator-feed --savenpm install hexo-generator-sitemap --save 部署，执行命令： 12hexo ghexo d]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[OpenCV学习]]></title>
     <url>%2F2018%2F07%2F26%2FOpenCV%E5%AD%A6%E4%B9%A0%2F</url>
     <content type="text"><![CDATA[mat对象 mat对象除了像素点数据外，还包含图像的其他属性，具体为宽、高、维度、通道数、深度、类型等。 Mat mat = Imgcodecs.imread(file.getpath())，默认加载的是BGR的彩色图像,默认的类型是CV_8UC3，CV表示计算机视觉，8U表示8位、U表示无符号char，C3表示三个通道。类比android中的Bitmap 8888格式，bitmap 8888 的位深度都为8位，一共有4个通道，因此一个像素占用4个字节，CV_8UC3的位深度为8位，一共有3个通道，因此一个像素占用3个字节。 Utils.bitmapToMat(bitmap,mat) Mat m = new Mat(new Size(3,3),CvType.CV_8UC3) Mat.eye(3,3,CvType.CV_8UC3) 图像滤波 滤波api在imgproc里，线性滤波器有均值、高斯滤波器。非线性滤波器有中值、最大值、最小值滤波器。 高斯双边滤波、均值迁移滤波 自定义滤波器]]></content>
