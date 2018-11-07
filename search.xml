@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[OpenCV学习]]></title>
+    <url>%2F2018%2F07%2F26%2FOpenCV%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[mat对象 mat对象除了像素点数据外，还包含图像的其他属性，具体为宽、高、维度、通道数、深度、类型等。 Mat mat = Imgcodecs.imread(file.getpath())，默认加载的是BGR的彩色图像,默认的类型是CV_8UC3，CV表示计算机视觉，8U表示8位、U表示无符号char，C3表示三个通道。类比android中的Bitmap 8888格式，bitmap 8888 的位深度都为8位，一共有4个通道，因此一个像素占用4个字节，CV_8UC3的位深度为8位，一共有3个通道，因此一个像素占用3个字节。 Utils.bitmapToMat(bitmap,mat) Mat m = new Mat(new Size(3,3),CvType.CV_8UC3) Mat.eye(3,3,CvType.CV_8UC3) 图像滤波 滤波api在imgproc里，线性滤波器有均值、高斯滤波器。非线性滤波器有中值、最大值、最小值滤波器。 高斯双边滤波、均值迁移滤波 自定义滤波器]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Android studio 打包jar并混淆]]></title>
+    <url>%2F2018%2F06%2F15%2FAndroid-studio-jar%E6%89%93%E5%8C%85%E5%B9%B6%E6%B7%B7%E6%B7%86%2F</url>
+    <content type="text"><![CDATA[新建一个Library module 修改build.gradle文件，新增: 1234 debug &#123; minifyEnabled true proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;&#125; 同时配置proguard-rules.pro 123456789101112131415161718192021222324252627282930 #指定压缩级别-optimizationpasses 5#表示混淆时不使用大小写混合类名-dontusemixedcaseclassnames#表示不跳过library中的非public的类-dontskipnonpubliclibraryclasses#打印混淆的详细信息-verbose# Optimization is turned off by default. Dex does not like code run# through the ProGuard optimize and preverify steps (and performs some# of these optimizations on its own).-dontoptimize##表示不进行校验,这个校验作用 在java平台上的-dontpreverify# Note that if you want to enable optimization, you cannot just# include optimization flags in your own project configuration file;# instead you will need to point to the# &quot;proguard-android-optimize.txt&quot; file instead of this one from your# project.properties file.#不跳过非公共的库的类成员-dontskipnonpubliclibraryclassmembers#混淆时采用的算法-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*#对外暴露public和protected方法，混淆private方法-keep public class com.sunflower.utils.MacUtils &#123; public protected *; &#125; 同步gradle后在’build/intermediates/bundles/debug/classes.jar’即是混淆后的jar包]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Android旋转屏幕后国际化失效问题]]></title>
+    <url>%2F2018%2F05%2F16%2FAndroid%E6%97%8B%E8%BD%AC%E5%B1%8F%E5%B9%95%E5%90%8E%E5%9B%BD%E9%99%85%E5%8C%96%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[问题描述app内部进行了国际化语言，在Activity调用了setRequestedOrientation()方法切换屏幕方向后，app的语言会切换到系统自带的语言，解决方法是重写Application的onConfigurationChanged()方法，在该方法里重新设置一下当前语言。]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[android原生分享获取资源失败问题]]></title>
+    <url>%2F2018%2F04%2F25%2Fandroid%E5%8E%9F%E7%94%9F%E5%88%86%E4%BA%AB%E8%8E%B7%E5%8F%96%E8%B5%84%E6%BA%90%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[今天在调用系统分享api的时候，碰到“获取资源失败”问题，只能分享到QQ，其他平台都不行。解决办法是在获取Uri的时候，使用Uri.fromFile() 123456Intent sendIntent = new Intent();sendIntent.setAction(Intent.ACTION_SEND);//如果调用Uri.parse()将获取不到资源sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(mSelectItem.get(0))));sendIntent.setType(&quot;image/*&quot;);startActivity(sendIntent);]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[jni]]></title>
+    <url>%2F2018%2F04%2F18%2Fjni%2F</url>
+    <content type="text"><![CDATA[参数传递 Java传String到底层，利用GetStringUTFChars转换成字符指针数组，该过程需要分配内存，要进行一个判空操作：同时需要释放上面操作所消耗的内存。 操作数组，env-&gt;getArrayElemetns 返回java数组的一个拷贝，优良的VM，会返回指向Java数组的一个直接的指针，并标记该内存区域，不允许被GC。 对象数组，使用Get/SetObjectArrayElement操作，对象数组只针对单个的元素，不提供类似Region的区域性操作。 获得类字节码：getObjectClass,FindClass 获得类的字段，getFieldID 获得某个对象的字段的值,getObjectField 添加日志#include &lt;android/log.h&gt; #define LOGD(…) android_log_print(ANDROID_LOG_DEBUG,”TAG”,VA_ARGS__) 类型签名 基本类型签名 函数签名,java支持函数重载，虽然参数不一样，但是方法名一样，因此jni层需要通过方法名和方法签名来唯一确定函数的调用(参数类型签名) + 返回值类型签名,对于没有返回值的，用V表示String test() Ljava/lang/String;int test(int i ,Object object) (ILjava/lang/Object;)Ivoid set(byte[] b) ([B)V c语言的指针 在声明指针中，“*”号表示所声明的变量是个指针 在指针使用时，“*”号表示操作指针所指向的内存空间中的值 当*p放在等号左边时，相当于给内存赋值 当*p放在等号右边时，相当于从内存取值 12345int i = 3,j = 0;int *p = NULL;p = &amp;i; //p指向i所在的内存*p = 5; //将p所指向的内存里的值修改为5，此时i的值也为5j = *p; //将p所指向的内存空间的值赋值给j 如果函数的参数里包含指针，进入函数系统会重新创建一个指针变量，与该参数指向相同的变量，因此如果要想在函数内部想修改指针的指向，就要用到二级指针 定位jni运行时的错误日志(Fatal signal 11 (SIGSEGV)) 命令行输入： adb logcat &gt; log.txt，将会在项目更目录写入log.txt文件 再在命令行输入：ndk-stack -sym app/build/intermediates/cmake/debug/obj/armeabi-v7a -dump ./log.txt]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[机器学习]]></title>
+    <url>%2F2018%2F03%2F01%2F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[专业术语 标签（y）–我们要预测的真实事物 特征(x)–描述数据的输入变量 样本–数据的特征实例。分为“有标签样本”和“无标签样本” 模型–特征与标签之间的关系。分为“回归模型”和“分类模型” 损失–衡量模型优劣的一个数值。平方损失（L2损失）,均方误差（MSE） 线性回归 y = b + w1x1y表示标签b（bias）偏差w1(weight)权重1x1特征1 降低损失（Reducing Loss） 如何降低损失？ 梯度下降法。降低损失本质上就是计算损失函数的最小值，也是计算最佳权重和偏差值，样本选取上不能采用单个样本，也不能选取所有样本，而是采用“小批量梯度下降法”，选取10-1000个样本。学习时，输入样本，得到一个损失函数关于w的函数，给权重设置一个初始值，求权重在该点的倒数即可得到在改点损失函数是下降还是上升的，然后以一定步进值在下降的方向变换权重值。 迭代方法。给权重和偏差设置一个初值，然后不断的迭代直到损失尽可能低。 学习速率。梯度下降法中，变化权重值时，将当前梯度乘以一个标量（步进），这个标量为学习速率，比如当前梯度为2，学习速率为0.25,则下一个权重点为1.5。 常用工具包Pandas 导入 import pandas as pd 创建Series对象,population = pd.Series([100,200,300]) 创建DataFrame对象,dataframe = pd.DataFrame(‘popu’:population) 显示dataframe前几条数据,dataframe.head() 访问数据,dataframe[‘popu’]返回一个列表,datafreame[‘popu’][1]返回某一列表的某个值 对单列Series进行转换,population.apply(lambda x : x &gt; 150)返回一个新的boolean型Series 将DataFrame重新排序，dataframe.reindex[0,1]，dataframe.reindex(np.random.permutation(dataframe.index))将dataframe随机排序 构建第一个模型 定义特征值并配置特征列。在TensorFlow中，我们使用一种称为“特征列”的结构来表示特征的数据类型，“特征列”仅存储对特征数据的描述，不包含特征数据本身。特征列将原始数据与模型需要的数据联系起来定义一个数字型特征列： 1tf.feature_column.numeric_column(&quot;total_rooms&quot;) 定义目标(标签) 1targes = dataframe[&quot;median_house_value&quot;] 配置LinearRegressor 12345#使用梯度下降优化器训练模型my_optimizer = tf.train.GradientDescentOptimizer(lerning_rate = 0.000001)my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer,5.0)#使用特征列和优化器配置一个线性回归模型linear_regressor = tf.estimator.Linearregressor(feature_column=feature_column,optimizer=my_optimizer) 定义输入函数,让特征与标签有个入口 调用模型的train()方法训练模型 将特征输入到模型，得到预算值，计算损失 识别离群值，截取离群值，重新训练 泛化 如果一个模型尝试紧密拟合训练数据，但是不能很好的泛化新的数据，就会发生过拟合 训练集和测试集 将单个数据集拆分成一个训练集和测试集 保证测试集满足如下两个条件： 规模足够大，可产生具有统计意义的结果 能代表整个数据集 训练过程中，不断调整超参数对训练集进行训练，来达成测试集的损失最小，这样有一个问题，那就是容易造成过拟合。解决方法：从训练集内部再划分一个验证集出来，在验证集的基础上不断调整参数，最后再在测试集上进行测试 机器学习中的调试通常是数据调试而不是代码调试 特征工程 从原始数据创建特征的过程称为特征工程 良好特征具备的特性： 以非零值的形式在数据集中多次出现 具备明确的含义，唯一性的值不适合做特征，如house_age:845465就不适合 特征不应该使用“魔术”值，超出范围的值 特征值不应该随时间而变化 不应包含离谱的离群值 分箱技巧 特征有时候需要组合，在预测一个地区的房价时，单独把经度当作特征明显不恰当，如果把经度和纬度分别分箱，然后在交叉组合，这样得到的特征组合就表示地图上的特定区域了 数据分析 dataframe.corr()函数将返回完整的相关系数或协方差矩阵-1.0：完全负相关0.0：不相关1.0：完全正相关 选取相关性强的特征作为输入 特征组合，特征组合是指将两个或多个输入特征相乘生成新的特征 正则化（Regularization） 某个模型在训练过程中训练损失逐渐减小，但是验证损失最终增加，这时候就产生了过拟合。为了防止过拟合，我们可以降低复杂模型的复杂度（可以理解为wx的项数）来防止过拟合，这种过程称为正则化。也就是说并非以最小损失为目标，而是以最小损失和复杂度为目标。L2正则会使所有权重趋于0.0。 L2正则化可以使权重趋于0.0，但是并不能使权重为0.0，在处罚高权重的时候是除以一个数 L1正则化可以使权重为0，在处罚高权重的时候是减去一个数，L1正则适用于将高维度的组合特征项权重降为01tf.train.FtrlOptimizer(learning_rate=learning_rate,ll_regularization_strength=regularization_strength) 逻辑回归 逻辑回归模型要求feature_targets为1.0或0.0，同时将feature_column修改成bucketized_column(),再将创建模型函数修改成tf.estimator.LinearClassifier()即可 对数损失函数是逻辑回归的损失函数LogLoss = ∑(-ylog(y’) - (1-y)log(1-y’)) 阈值–逻辑判断中的临界值 准确率–预测结果与实际值一致 / 总样本数 精确率–预测结果为正的正确个数 / 预测结果为正的总个数（小男孩说狼来了中有多少次是对的） 召回率–正样本中被预测正确的个数 / 正样本总个数（在所有试图进入村中的狼中，我们发现了多少头） 真正例率（TPR）–真实的正例中，被预测为正例的比例，同召回率 假正例率（FPR）–真实的反例中，被预测为正例的比例 精确率和召回率是此消彼长的状态，提高阈值可能会提高精确率，同时可能会降低召回率 预测偏差–预测的偏差应约等于“观察平均值” 神经网络(Neural Networks) 激活函数–输入与输出之间添加一层非线性的函数 非线性激活函数可以学习非线性模型，如果一个模型具有2个隐藏层，那么学习模型需要一定的时间，而且学习结果有很大的不确定性，有时损失很低，有时差异很大 添加隐藏层和额外节点可以让模型结果看起来大致相同，每次运行结果差异较小123456#使用DNNRegressor类定义神经网络结构，hidden_units=[3,10]定义了两个隐藏层，第一层包括3个节点，第二层包括10个节点my_optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer,5.0)DNNRegressor = tf.estimator.DNNRegressor( feature_column=construct_feature_columns(training_examples), hidden_units=[3,10]) 神经网络的优化 使用线性缩放将特征标准化。也可使用其他标准化函数，将特征以柱状图的形式显示，对数形式的特征适合使用log函数，均匀分布的使用线性缩放函数，部分有极端离群值的特征采用截取函数 尝试使用其他的优化器。 AdaGrad的核心是灵活的修改模型中每个系数的学习率，从而单调降低有效的学习率，该优化器对凸优化问题非常有效，这个优化器需要指定较大的学习率 1my_optimizer=tf.train.AdagradOptimizer(learning_rate=0.0007) 对于非凸优化问题，Adam有时比AdaGrad更有效 1my_optimizer=tf.train.AdamOptimizer(learning_rate=0.0007) 多类别神经网络（Multi-Class Neural Networks） 当要识别多个标签时，不能单独为每个标签创建一个二分类器。 在多类别识别问题中，Softmax为每个类别分配一个小数作为概率，所有类别的概率加起来和为1，这样更有利于收敛 Softmax层是紧挨着输出层之前的神经网络层，Softmax层必须和输出层拥有一样的节点数 Softmax的识别结果只有一个，如果要同时识别多个，得改用多个逻辑回归]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[视频播放器原理]]></title>
+    <url>%2F2017%2F11%2F24%2F%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8%E5%8E%9F%E7%90%86%2F</url>
+    <content type="text"><![CDATA[视频播放步骤 流媒体协议 在线播放时才需要用到流媒体协议。 流媒体协议是服务器与客户端之间通信遵循的规定。 封装格式 封装格式作用是把视频码流和音频码流按照一定的格式存储在一个文件中。 视频编码视频编码的主要作用是将视频像素数据（RGB,YUV等）压缩成视频码流，从而降低视频传输的数据量。 H.265 H.264 MPEG4 MPEG2 VP9 VP8 VC-1 当前主流的编码标准是H.264，H.264仅仅是一个编码标准，而不是一个具体的编码器，H.264只是给编码器的实现提供参照用的。 音频编码 AAC AC-3 MP3 WMA 直播平台参数对比直播服务普通采用RTMP作为流媒体协议，封装格式，视频编码，音频编码，无一例外的使用了FLV + H.264 + AAC的组合，视频播放器方面，都使用了Flash播放器。]]></content>
+      <categories>
+        <category>音视频技术</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[阅读记录]]></title>
+    <url>%2F2017%2F10%2F20%2F%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[策略思维 设身处地，从别人的角度观察这个世界。 向前展望，向后推理。这里说的是做出一系列行动与反行动。预计沿着你现在前进的道路走下去，最后会到达哪里。然后再往前倒推，要想达到自己的目的，之前应该怎样做选择。 囚徒困境。 决策树，没有其他人参与的一系列决策。 博弈树，与决策树相反。 影响力 影响力的三个要素：固定行为模式（如好货不便宜），可利用性，有效性 六种影响里的场景： 互惠原理，先给你一个好处，使你产生亏欠感，从而促成其目的（如免费服务与增值服务）。互惠让步，先让一步，从而使你让更大的一步。 承诺，每个人都想表现得“言行一致”,先诱使你认同某一观点，然后让你为此观点付出（珍爱生命倡议书），或者先诱使你做出某一决定，然后让你为此决定做出牺牲（在你决定购买88折的商品后告诉你该商品有其他的捆绑销售，此时你又不好意思放弃购买）。 社会认同，从众心理，你会不由自主的认同大家都认同的东西（淘宝刷评论，排队请托等）。 喜好，使你对某个对象产生喜好。权威性（明星代言）、相似性（星座？）、重复（广告重播）、称赞等让你对某个对象产生喜好。识别对方对方让你产生喜好的时机，避免被人套路。 权威，身份、地位、专业程度促使你服从。 稀缺，限量版，竞争心理（饥饿营销） 改变思维定式 心智模式：看待同一问题的不同角度。心智模式决定了我们看到世界的。混沌，察觉，醒觉，超越，不知不觉，后知后觉，当知当觉，先知先觉。 好好学习，个人知识管理精进指南 认知深度，认知效率]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo 常用命令]]></title>
+    <url>%2F2017%2F10%2F20%2Fhexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[hexo常用命令 hexo init #初始化 hexo n “文章名” #新建文章 hexo g #生成 hexo d #部署 hexo s #启动服务器预览]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Python基础]]></title>
+    <url>%2F2017%2F10%2F20%2FPython%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"><![CDATA[len() 计算长度 str() 转换成字符串 .upper() 字符串大写 .lower() 字符串小写 raw_input(“提示语”) 输入 “my name is %s %s” % (“pp”,”!”) 置换符 datatime.now() 返回当前时间 not &gt; and &gt; or 布尔型运算符优先级 .isalpha() 判断字符串是否全小写 “Liupp”[1:3] -&gt; iup 字符串切割 from math import sqrt 导入指定函数 dict.items() 打印集合 dict.keys() 打印集合的键 dict.values() 打印集合的值 [x ** 2 for x in range(1,5) if x % 2 == 0] == [4,16] list[start:end:stride] 按步进stride得到一个新列表 list[::-1] 反向遍历数组 lambda x: x % 3 == 0 匿名函数，返回一个boolean值,lambda定义了一个匿名函数，为了解决单行函数而存在 filter(lambda x: x% 2 == 0,range(6)) == [0,2,4] bin(5) 5的二进制，0b101 open(“output.txt”,”r+”) 读写模式 with open(“text.txt”,”w”) as my_file 这个语句可以自动close()]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[greendao3.0一对多的应用]]></title>
+    <url>%2F2017%2F10%2F18%2Fgreendao3.0%20%E4%B8%80%E5%AF%B9%E5%A4%9A%E7%9A%84%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[配置gradle123456789101112131415161718192021222324252627// 工程gradle文件buildscript &#123; repositories &#123; jcenter() mavenCentral() // add repository &#125; dependencies &#123; classpath &apos;com.android.tools.build:gradle:2.3.3&apos; classpath &apos;org.greenrobot:greendao-gradle-plugin:3.2.2&apos; // add plugin &#125;&#125;// 项目gradle文件apply plugin: &apos;com.android.application&apos;apply plugin: &apos;org.greenrobot.greendao&apos; // apply plugindependencies &#123; compile &apos;org.greenrobot:greendao:3.2.2&apos; // add library&#125;android &#123; greendao &#123; schemaVersion 1 //数据库版本号 daoPackage &apos;com.sunflower.FindCam.dao&apos; //自动生成的工具类的包名 targetGenDir &apos;src/main/java&apos; //路径 &#125;&#125; 编写实体类greendao 一对多的应用。比如一个用户，可以有多条检查记录，不同的检查记录可同时属于一个用户，这里就可以建立两张表，这里称主表和副表，主表中可定义如下一个字段：12@ToMany(referencedJoinProperty = &quot;userId&quot;)private List&lt;LogBean&gt; mLogBeanList; 用来定义单个用户的所有检查记录，同时在副表的实体中定义一个以”userId”命名的字段，当往副表中插入数据的时候，将副表实体的”userId”的值设置为主表中的id,即可完成关联，这样只要在调用主表的实体中调用getMLogBeanList()就会自动去副表中查询相关联的数据。实体代码如下：123456789101112131415161718@Entitypublic class User &#123; //id自动增长 @Id(autoincrement = true) private Long id; private int age; //年龄 private int count; //检查次数 private String name; //名字 private String number; //电话 private String address1; //地址1 private String address2; //地址2 private String date; //最近检查日期 //一对多 @ToMany(referencedJoinProperty = &quot;userId&quot;) private List&lt;LogBean&gt; mLogBeanList; &#125; 1234567891011@Entitypublic class LogBean &#123; @Id(autoincrement = true) private Long id; private Long userId; private String date; private boolean isPIC; private String path; &#125; MakeProject编译项目，User类和LogBean会自动生成一些方法，同时在指定目录下会生成dao相关的类 初始化数据库12345678private void initDbHelp() &#123; DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, &quot;users.db&quot;, null); SQLiteDatabase db = helper.getWritableDatabase(); DaoMaster daoMaster = new DaoMaster(db); DaoSession daoSession = daoMaster.newSession(); sUserDao = daoSession.getUserDao(); sLogDao = daoSession.getLogBeanDao(); &#125; 两个坑 当我以一个用户的id向副表中插入了一条数据之后，再调用该用户实体的getList()方法，返回的集合size一直不变，这是因为greendao将集合缓存了，只有在调用getList()方法前先调用reset()方法，才会重新去查询副表里的数据。要注意在调用reset()方法后，用户实体的集合字段是重新创建的，如果有将这个集合传到Adapter里，再调用Adapter的notifyDataSetChanged()方法是不会去刷新数据的。 模糊查询时，需要在字符串前后加上”%”，否则匹配不到，如下：123mUsers = UfcApp.sUserDao.queryBuilder() .where(UserDao.Properties.Name.like(&quot;%&quot; + name + &quot;%&quot;)) .list();]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[android蓝牙开发]]></title>
+    <url>%2F2017%2F09%2F28%2Fandroid%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91%2F</url>
+    <content type="text"><![CDATA[最近在做一个蓝牙音箱的项目，该项目用到两个蓝牙，一个音频蓝牙（3.0）模块用来传音频，一个ble蓝牙（4.0）模块用来透传数据。项目做完，赶紧记录一下。 扫描蓝牙扫描蓝牙有以下两种方式：12mBluetoothAdapter.startDiscovery();mBluetoothAdapter.startLeScan(); 第一种能扫描出所有蓝牙设备，扫描结果通过广播的方式回调。第二种方式只能扫描出BLE设备，扫描结果通过接口回调。注意除了给应用添加蓝牙权限，还需要额外添加位置权限1&lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot; /&gt; 否则在6.0以上的手机上运行搜索不到蓝牙设备。 连接蓝牙连接蓝牙之前，需要先检查应用权限及打开蓝牙。音频蓝牙连接步骤：BLE蓝牙连接步骤：由于这里同时使用到了两种蓝牙设备，为了简化连接操作，在每次连接时，软件优先去连接音频蓝牙，当音频蓝牙连接成功后，再自动去连ble蓝牙，再统一在广播里处理连接结果，这样就能做到只连接一次就可以同时连上两个蓝牙。关于蓝牙连接的状态，有如下需要注意的： 音频蓝牙一旦被连接上，其他手机将不再搜索得到 ble蓝牙一旦被连接上，其他手机将不再搜索得到，但是调用了mBluetoothGatt.disconnect()后，其他手机可以搜索到（经测试，在华为P9上调用了disconnect后其他手机也搜索不到，必须到设置里取消配对后才可以搜索到） 音频蓝牙只要被连接过，之后上电会自动被连接 ble蓝牙只能通过代码连接才可以进行通信，在系统的设置里连接不能进行通信 由于有时候音频蓝牙会自动连接，这个时候在应用里是扫描不到的，所有需要判断手机当前是否已连接上音频蓝牙，代码如下：123456789101112131415161718192021222324private BluetoothProfile.ServiceListener mConnectedListener = new BluetoothProfile.ServiceListener() &#123; @Override public void onServiceDisconnected(int profile) &#123; &#125; @Override public void onServiceConnected(int profile, BluetoothProfile proxy) &#123; try &#123; if (profile == BluetoothProfile.A2DP) &#123; a2dp = (BluetoothA2dp) proxy; List&lt;BluetoothDevice&gt; connectedDevices = proxy.getConnectedDevices(); for (BluetoothDevice device : connectedDevices) &#123; if (mName.replace(&quot;z&quot;, &quot;&quot;).equals(device.getName())) &#123; connectBleDevice(); return; &#125; &#125; showToast(getString(R.string.connect_failed)); &#125; &#125; catch (Exception e) &#123; e.printStackTrace(); &#125; &#125;&#125;;]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[随手记]]></title>
+    <url>%2F2017%2F08%2F08%2F%E9%9A%8F%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[Activity 上一个activity的onPause执行完成后才会执行下一个activity的onResume，因此为了让第二个activity尽快显示出来，应该避免在onPause执行耗时操作。 Activity在意外关闭时，在onStop方法调用前会调用onSaveInstanceState保存状态，包括View的数据等，View里面也实现onSaveInstanceState 和 onRestoreInstanceState方法，比如EditText里面有一个内部类SaveState用来保存和回复edittext信息。 默认启动一个Activity是将这个activity启动到当前Context的任务栈，如果利用非Activity的Context启动一个Activity，需要添加一个new_Task。 多进程 通常情况下，android中的多进程指的是一个应用程序中开启多进程的情况，可以在Androidmainfest文件中指定四大组件的process属性。 Android在绑定服务的时候，服务会返回一个Binder对象，该对象需要序列化，实现serializable。 ThreadLocal 一个泛型类，对于同一个ThreadLocal对象，在不同线程访问该对象，可以返回不同的值。 ThreadLocal有一个内部类Values，Thread类有一个Values成员变量，ThreadLocal的set和get方法，会根据当前线程去拿到不同的对象。 在handler机制中，每个线程都有一个looper对象。其实对于Looper类来说，它有一个静态成员变量looper，该成员变量使用ThreadLocal修饰的，这样再不同线程调用sThreadLocal.get()方法，所获得的looper对象就是对应线程的。 java内存 寄存器，在cpu内部，程序员无法控制。 堆栈，ram，用来存放引用，即句柄。 堆，heap，用来存放对象。 静态存储，也存在于ram，用static修饰。 常量池。 java虚拟机内存分为堆区、栈区、方法区、本地（native）方法栈、程序计数器，其中方法区内又有一块特殊的区域，常量池。常量在编译阶段就已经导入常量池了。 protected修饰与不写修饰符的区别 作用范围都是包内可访问。区别：子类可使用父类的protected修饰的成员，不能使用父类无修饰符的成员。 内部类 成员内部类 静态成员内部类 局域内部类 匿名内部类 内存泄露 静态成员变量引起内存泄漏，static修饰的变量属于类所有，当static变量持有Activity对象时，Activity销毁并不会销毁对象。 单例模式引起内存泄露，懒汉式只有一个实例，也是静态的，类似第一条。 asyncTask引起内存泄漏，一般asynctask用作匿名内部类的形式，会持有外部Activity对象，当activity退出时，asyncTask还在执行子线程。 handler一般也是匿名内部类的形式存在，如果handler的Message还没处理完的话（比如handler.postDelay），activity此时退出了，那么这个activity对象仍然被handler对象持有。 属性动画一定要在onDestroy方法里要停止，不然会常驻内存。 so库的打包 Android studio 默认会将jniLibs下的所有架构都打包进apk里面去，手机在安装app的时候选择一个架构，放在lib文件夹下，因此每个armeabi文件夹里的so库必须完整。 RecyclerView RecyclerView在xml里不能用权重，否则createViewHolder会执行多次。 接口的成员变量为什么是public static final 修饰？ 接口就是用来继承的，就是为了让子类共享，因此为public。 接口的数据就是为了让所有子类共享，只需要一份，因此为static。 公共的数据，就不能在子类中更改，如果更改了，那么其他子类相应也更改了。 广播 不要在广播接收者里面开启线程，广播拥有自己的进程，当广播执行完receive（）方法后，所在进程会成为空进程，很容易被系统回收。 内存回收方式 标记清除法，标记出可回收内存，一次性回收。 复制算法，将内存分为两块，只使用其中一块，快满时将存活对象复制到另一块，完全清除当前这一块。 标记整理算法，标记存活内存，将存活内存移到最前边，清除后面所有。 分代收集算法，将堆分成老年代和轻年代，轻年代可回收对象比较多，采用复制算法，轻年代采用标记法。 java io流 解决jcenter的库下载不下来的问题 讲”jcenter()”替换为：1maven&#123;url&apos;http://maven.aliyun.com/nexus/content/groups/public/&apos;&#125; jvm内存回收机制 每个线程都有独立的虚拟机栈，用来保存线程本地变量名和局部变量值。 对象回收有两种方式，引用计数法和可达性分析法。引用计数法是指对象每被引用一次计数就加一，当计数为0时说明可被回收，这种方式的弊端是A对象和B对象交叉引用时不会被回收。 技能点 二维码识别 百度地图，高德地图 蓝牙3.0 4.0开发 greendao 3.0 一对多的应用 关键字离线语音识别 图像跟踪jni接口编写 泛型 泛型类似于形参，分为泛型类、泛型接口、泛型方法 泛型只在编译阶段有效，不在运行阶段生效 泛型形参为具体类时才有约束作用，其他字母时传任何类都可以 public与返回值中间添加的方法才是泛型方法1public &lt;T&gt; T getObject()&#123;&#125; 查找中文字符串 find in path 输入如下内容：^((?!(*|//)).)+[\u4e00-\u9fa5]]]></content>
+      <categories>
+        <category>Android开发</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[mark down]]></title>
+    <url>%2F2017%2F03%2F10%2Fmarkdown%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[markdown常用命令一级标题(# 一级标题)二级标题三级标题四级标题列表 第一种无序列表（- 文字） 第二种无序列表（* 文字） 有序列表1（1. 文字） 有序列表2（2. 文字） 引用 这是引用（&gt; 这是引用） 插入链接这是百度链接 插入图片 粗体与斜体这是粗体（**号包裹文字）这是斜体（*号包裹文字） 分割线 代码框123public static void main(String[] arg)&#123; int a = 0;&#125;]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[Git]]></title>
+    <url>%2F2017%2F03%2F10%2FGit%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Git 常用命令 移除单个文件的版本管理： git rm –cached fileName。或者，添加.gitignore文件，再执行清除缓存命令：git rm -r –cached]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+</search>

@@ -1,0 +1,1134 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="liuping,刘平,刘平平,495572997,a495572997@gmail.com">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="LiuPing" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="专业术语 标签（y）–我们要预测的真实事物 特征(x)–描述数据的输入变量 样本–数据的特征实例。分为“有标签样本”和“无标签样本” 模型–特征与标签之间的关系。分为“回归模型”和“分类模型” 损失–衡量模型优劣的一个数值。平方损失（L2损失）,均方误差（MSE）  线性回归 y = b + w1x1y表示标签b（bias）偏差w1(weight)权重1x1特征1  降低损失（Reducing L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习">
+<meta property="og:url" content="https://hellojiawa.github.io/2018/03/01/机器学习/index.html">
+<meta property="og:site_name" content="LiuPing">
+<meta property="og:description" content="专业术语 标签（y）–我们要预测的真实事物 特征(x)–描述数据的输入变量 样本–数据的特征实例。分为“有标签样本”和“无标签样本” 模型–特征与标签之间的关系。分为“回归模型”和“分类模型” 损失–衡量模型优劣的一个数值。平方损失（L2损失）,均方误差（MSE）  线性回归 y = b + w1x1y表示标签b（bias）偏差w1(weight)权重1x1特征1  降低损失（Reducing L">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://hellojiawa.github.io/image/data_tf.jpg">
+<meta property="og:image" content="https://hellojiawa.github.io/image/tf_linear_scale.jpg">
+<meta property="og:image" content="https://hellojiawa.github.io/image/tf_standard.png">
+<meta property="og:updated_time" content="2018-03-19T06:14:47.554Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习">
+<meta name="twitter:description" content="专业术语 标签（y）–我们要预测的真实事物 特征(x)–描述数据的输入变量 样本–数据的特征实例。分为“有标签样本”和“无标签样本” 模型–特征与标签之间的关系。分为“回归模型”和“分类模型” 损失–衡量模型优劣的一个数值。平方损失（L2损失）,均方误差（MSE）  线性回归 y = b + w1x1y表示标签b（bias）偏差w1(weight)权重1x1特征1  降低损失（Reducing L">
+<meta name="twitter:image" content="https://hellojiawa.github.io/image/data_tf.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://hellojiawa.github.io/2018/03/01/机器学习/">
+
+
+
+
+
+  <title> 机器学习 | LiuPing </title>
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LiuPing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope="" itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://hellojiawa.github.io/2018/03/01/机器学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liuping">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LiuPing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                机器学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T19:12:28+08:00">
+                2018-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/01/机器学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/01/机器学习/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/03/01/机器学习/" class="leancloud_visitors" data-flag-title="机器学习">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h3><ul>
+<li>标签（y）–我们要预测的真实事物</li>
+<li>特征(x)–描述数据的输入变量</li>
+<li>样本–数据的特征实例。分为“有标签样本”和“无标签样本”</li>
+<li>模型–特征与标签之间的关系。分为“回归模型”和“分类模型”</li>
+<li>损失–衡量模型优劣的一个数值。平方损失（L<sub>2</sub>损失）,均方误差（MSE）</li>
+</ul>
+<h3 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h3><ul>
+<li>y = b + w<sub>1</sub>x<sub>1</sub><br>y表示标签<br>b（bias）偏差<br>w<sub>1</sub>(weight)权重1<br>x<sub>1</sub>特征1</li>
+</ul>
+<h3 id="降低损失（Reducing-Loss）"><a href="#降低损失（Reducing-Loss）" class="headerlink" title="降低损失（Reducing Loss）"></a>降低损失（Reducing Loss）</h3><p>  如何降低损失？</p>
+<ul>
+<li>梯度下降法。降低损失本质上就是计算损失函数的最小值，也是计算最佳权重和偏差值，样本选取上不能采用单个样本，也不能选取所有样本，而是采用“小批量梯度下降法”，选取10-1000个样本。学习时，输入样本，得到一个损失函数关于w的函数，给权重设置一个初始值，求权重在该点的倒数即可得到在改点损失函数是下降还是上升的，然后以一定步进值在下降的方向变换权重值。</li>
+<li>迭代方法。给权重和偏差设置一个初值，然后不断的迭代直到损失尽可能低。</li>
+<li>学习速率。梯度下降法中，变化权重值时，将当前梯度乘以一个标量（步进），这个标量为学习速率，比如当前梯度为2，学习速率为0.25,则下一个权重点为1.5。</li>
+</ul>
+<h3 id="常用工具包Pandas"><a href="#常用工具包Pandas" class="headerlink" title="常用工具包Pandas"></a>常用工具包Pandas</h3><ul>
+<li>导入 import pandas as pd</li>
+<li>创建Series对象,population = pd.Series([100,200,300])</li>
+<li>创建DataFrame对象,dataframe = pd.DataFrame(‘popu’:population)</li>
+<li>显示dataframe前几条数据,dataframe.head()</li>
+<li>访问数据,dataframe[‘popu’]返回一个列表,datafreame[‘popu’][1]返回某一列表的某个值</li>
+<li>对单列Series进行转换,population.apply(lambda x : x &gt; 150)返回一个新的boolean型Series</li>
+<li>将DataFrame重新排序，dataframe.reindex[0,1]，dataframe.reindex(np.random.permutation(dataframe.index))将dataframe随机排序</li>
+</ul>
+<h3 id="构建第一个模型"><a href="#构建第一个模型" class="headerlink" title="构建第一个模型"></a>构建第一个模型</h3><ol>
+<li><p>定义特征值并配置特征列。在TensorFlow中，我们使用一种称为“特征列”的结构来表示特征的数据类型，“特征列”仅存储对特征数据的描述，不包含特征数据本身。<strong>特征列将原始数据与模型需要的数据联系起来</strong><br>定义一个数字型特征列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.feature_column.numeric_column(&quot;total_rooms&quot;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义目标(标签)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">targes = dataframe[&quot;median_house_value&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置LinearRegressor</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#使用梯度下降优化器训练模型</span><br><span class="line">my_optimizer = tf.train.GradientDescentOptimizer(lerning_rate = 0.000001)</span><br><span class="line">my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer,5.0)</span><br><span class="line">#使用特征列和优化器配置一个线性回归模型</span><br><span class="line">linear_regressor = tf.estimator.Linearregressor(feature_column=feature_column,optimizer=my_optimizer)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义输入函数,让特征与标签有个入口</p>
+</li>
+<li>调用模型的train()方法训练模型</li>
+<li>将特征输入到模型，得到预算值，计算损失</li>
+<li>识别离群值，截取离群值，重新训练</li>
+</ol>
+<h3 id="泛化"><a href="#泛化" class="headerlink" title="泛化"></a>泛化</h3><ul>
+<li>如果一个模型尝试紧密拟合训练数据，但是不能很好的泛化新的数据，就会发生过拟合</li>
+</ul>
+<h3 id="训练集和测试集"><a href="#训练集和测试集" class="headerlink" title="训练集和测试集"></a>训练集和测试集</h3><ul>
+<li>将单个数据集拆分成一个训练集和测试集</li>
+<li>保证测试集满足如下两个条件：<ol>
+<li>规模足够大，可产生具有统计意义的结果</li>
+<li>能代表整个数据集</li>
+</ol>
+</li>
+<li>训练过程中，不断调整超参数对训练集进行训练，来达成测试集的损失最小，这样有一个问题，那就是容易造成过拟合。解决方法：从训练集内部再划分一个验证集出来，在验证集的基础上不断调整参数，最后再在测试集上进行测试<br><img src="/image/data_tf.jpg" alt=""></li>
+<li>机器学习中的调试通常是数据调试而不是代码调试</li>
+</ul>
+<h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3><ul>
+<li>从原始数据创建特征的过程称为特征工程</li>
+<li>良好特征具备的特性：<ol>
+<li>以非零值的形式在数据集中多次出现</li>
+<li>具备明确的含义，唯一性的值不适合做特征，如house_age:845465就不适合</li>
+<li>特征不应该使用“魔术”值，超出范围的值</li>
+<li>特征值不应该随时间而变化</li>
+<li>不应包含离谱的离群值</li>
+<li>分箱技巧</li>
+</ol>
+</li>
+<li>特征有时候需要组合，在预测一个地区的房价时，单独把经度当作特征明显不恰当，如果把经度和纬度分别分箱，然后在交叉组合，这样得到的特征组合就表示地图上的特定区域了</li>
+</ul>
+<h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><ul>
+<li>dataframe.corr()函数将返回完整的相关系数或协方差矩阵<br>-1.0：完全负相关<br>0.0：不相关<br>1.0：完全正相关</li>
+<li>选取相关性强的特征作为输入</li>
+<li>特征组合，特征组合是指将两个或多个输入特征相乘生成新的特征</li>
+</ul>
+<h3 id="正则化（Regularization）"><a href="#正则化（Regularization）" class="headerlink" title="正则化（Regularization）"></a>正则化（Regularization）</h3><p>  某个模型在训练过程中训练损失逐渐减小，但是验证损失最终增加，这时候就产生了过拟合。为了防止过拟合，我们可以降低复杂模型的复杂度（可以理解为wx的项数）来防止过拟合，这种过程称为正则化。也就是说并非以最小损失为目标，而是以最小损失和复杂度为目标。L2正则会使所有权重趋于0.0。</p>
+<ul>
+<li>L2正则化可以使权重趋于0.0，但是并不能使权重为0.0，在处罚高权重的时候是除以一个数</li>
+<li>L1正则化可以使权重为0，在处罚高权重的时候是减去一个数，L1正则适用于将高维度的组合特征项权重降为0<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.train.FtrlOptimizer(learning_rate=learning_rate,ll_regularization_strength=regularization_strength)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h3><ul>
+<li>逻辑回归模型要求feature_targets为1.0或0.0，同时将feature_column修改成bucketized_column(),再将创建模型函数修改成tf.estimator.LinearClassifier()即可</li>
+<li>对数损失函数是逻辑回归的损失函数<br>LogLoss = ∑(-ylog(y’) - (1-y)log(1-y’))</li>
+<li>阈值–逻辑判断中的临界值</li>
+<li>准确率–预测结果与实际值一致 / 总样本数</li>
+<li>精确率–预测结果为正的正确个数 / 预测结果为正的总个数（小男孩说狼来了中有多少次是对的）</li>
+<li>召回率–正样本中被预测正确的个数 / 正样本总个数（在所有试图进入村中的狼中，我们发现了多少头）</li>
+<li>真正例率（TPR）–真实的正例中，被预测为正例的比例，同召回率</li>
+<li><p>假正例率（FPR）–真实的反例中，被预测为正例的比例</p>
+</li>
+<li><p>精确率和召回率是此消彼长的状态，提高阈值可能会提高精确率，同时可能会降低召回率</p>
+</li>
+<li>预测偏差–预测的偏差应约等于“观察平均值”</li>
+</ul>
+<h3 id="神经网络-Neural-Networks"><a href="#神经网络-Neural-Networks" class="headerlink" title="神经网络(Neural Networks)"></a>神经网络(Neural Networks)</h3><ul>
+<li>激活函数–输入与输出之间添加一层非线性的函数</li>
+<li>非线性激活函数可以学习非线性模型，如果一个模型具有2个隐藏层，那么学习模型需要一定的时间，而且学习结果有很大的不确定性，有时损失很低，有时差异很大</li>
+<li>添加隐藏层和额外节点可以让模型结果看起来大致相同，每次运行结果差异较小<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#使用DNNRegressor类定义神经网络结构，hidden_units=[3,10]定义了两个隐藏层，第一层包括3个节点，第二层包括10个节点</span><br><span class="line">my_optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)</span><br><span class="line">my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer,5.0)</span><br><span class="line">DNNRegressor = tf.estimator.DNNRegressor(</span><br><span class="line">  feature_column=construct_feature_columns(training_examples),</span><br><span class="line">  hidden_units=[3,10])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="神经网络的优化"><a href="#神经网络的优化" class="headerlink" title="神经网络的优化"></a>神经网络的优化</h3><ul>
+<li>使用线性缩放将特征标准化。<br><img src="/image/tf_linear_scale.jpg" alt=""><br>也可使用其他标准化函数，将特征以柱状图的形式显示，对数形式的特征适合使用log函数，均匀分布的使用线性缩放函数，部分有极端离群值的特征采用截取函数<br><img src="/image/tf_standard.png" alt=""></li>
+<li><p>尝试使用其他的优化器。</p>
+<ul>
+<li><p>AdaGrad的核心是灵活的修改模型中每个系数的学习率，从而单调降低有效的学习率，该优化器对凸优化问题非常有效，这个优化器需要指定较大的学习率</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_optimizer=tf.train.AdagradOptimizer(learning_rate=0.0007)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于非凸优化问题，Adam有时比AdaGrad更有效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_optimizer=tf.train.AdamOptimizer(learning_rate=0.0007)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="多类别神经网络（Multi-Class-Neural-Networks）"><a href="#多类别神经网络（Multi-Class-Neural-Networks）" class="headerlink" title="多类别神经网络（Multi-Class Neural Networks）"></a>多类别神经网络（Multi-Class Neural Networks）</h3><ul>
+<li>当要识别多个标签时，不能单独为每个标签创建一个二分类器。</li>
+<li>在多类别识别问题中，Softmax为每个类别分配一个小数作为概率，所有类别的概率加起来和为1，这样更有利于收敛</li>
+<li>Softmax层是紧挨着输出层之前的神经网络层，Softmax层必须和输出层拥有一样的节点数</li>
+<li>Softmax的识别结果只有一个，如果要同时识别多个，得改用多个逻辑回归</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/24/视频播放器原理/" rel="next" title="视频播放器原理">
+                <i class="fa fa-chevron-left"></i> 视频播放器原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/jni/" rel="prev" title="jni">
+                jni <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/03/01/机器学习/" data-title="机器学习" data-url="https://hellojiawa.github.io/2018/03/01/机器学习/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="liuping">
+          <p class="site-author-name" itemprop="name">liuping</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hellojiawa" target="_blank" title="GitHub">
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/liuerping" target="_blank" title="Twitter">
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-ping-29-57" target="_blank" title="Zhihu">
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#专业术语"><span class="nav-number">1.</span> <span class="nav-text">专业术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性回归"><span class="nav-number">2.</span> <span class="nav-text">线性回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#降低损失（Reducing-Loss）"><span class="nav-number">3.</span> <span class="nav-text">降低损失（Reducing Loss）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用工具包Pandas"><span class="nav-number">4.</span> <span class="nav-text">常用工具包Pandas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建第一个模型"><span class="nav-number">5.</span> <span class="nav-text">构建第一个模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛化"><span class="nav-number">6.</span> <span class="nav-text">泛化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练集和测试集"><span class="nav-number">7.</span> <span class="nav-text">训练集和测试集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征工程"><span class="nav-number">8.</span> <span class="nav-text">特征工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据分析"><span class="nav-number">9.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则化（Regularization）"><span class="nav-number">10.</span> <span class="nav-text">正则化（Regularization）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑回归"><span class="nav-number">11.</span> <span class="nav-text">逻辑回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络-Neural-Networks"><span class="nav-number">12.</span> <span class="nav-text">神经网络(Neural Networks)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络的优化"><span class="nav-number">13.</span> <span class="nav-text">神经网络的优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多类别神经网络（Multi-Class-Neural-Networks）"><span class="nav-number">14.</span> <span class="nav-text">多类别神经网络（Multi-Class Neural Networks）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lerp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("7cMW5rVtcw0l08y2SlODL6jn-gzGzoHsz", "p2gWO8V73NjSecna6T13x5gz");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

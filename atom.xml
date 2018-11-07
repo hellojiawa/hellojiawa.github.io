@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>LiuPing</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://hellojiawa.github.io/"/>
+  <updated>2018-07-28T08:31:36.199Z</updated>
+  <id>https://hellojiawa.github.io/</id>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>OpenCV学习</title>
+    <link href="https://hellojiawa.github.io/2018/07/26/OpenCV%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://hellojiawa.github.io/2018/07/26/OpenCV学习/</id>
+    <published>2018-07-26T07:41:21.000Z</published>
+    <updated>2018-07-28T08:31:36.199Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="mat对象"><a href="#mat对象" class="headerlink" title="mat对象"></a>mat对象</h3><p>  mat对象除了像素点数据外，还包含图像的其他属性，具体为宽、高、维度、通道数、深度、类型等。</p><ol><li>Mat mat = Imgcodecs.imread(file.getpath())，默认加载的是BGR的彩色图像,默认的类型是CV_8UC3，CV表示计算机视觉，8U表示8位、U表示无符号char，C3表示三个通道。<br>类比android中的Bitmap 8888格式，bitmap 8888 的位深度都为8位，一共有4个通道，因此一个像素占用4个字节，CV_8UC3的位深度为8位，一共有3个通道，因此一个像素占用3个字节。</li><li>Utils.bitmapToMat(bitmap,mat)</li><li>Mat m = new Mat(new Size(3,3),CvType.CV_8UC3)</li><li>Mat.eye(3,3,CvType.CV_8UC3)</li></ol><h3 id="图像滤波"><a href="#图像滤波" class="headerlink" title="图像滤波"></a>图像滤波</h3><ol><li>滤波api在imgproc里，线性滤波器有均值、高斯滤波器。非线性滤波器有中值、最大值、最小值滤波器。</li><li>高斯双边滤波、均值迁移滤波</li><li>自定义滤波器</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;mat对象&quot;&gt;&lt;a href=&quot;#mat对象&quot; class=&quot;headerlink&quot; title=&quot;mat对象&quot;&gt;&lt;/a&gt;mat对象&lt;/h3&gt;&lt;p&gt;  mat对象除了像素点数据外，还包含图像的其他属性，具体为宽、高、维度、通道数、深度、类型等。&lt;/p&gt;
+&lt;ol&gt;
+
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Android studio 打包jar并混淆</title>
+    <link href="https://hellojiawa.github.io/2018/06/15/Android-studio-jar%E6%89%93%E5%8C%85%E5%B9%B6%E6%B7%B7%E6%B7%86/"/>
+    <id>https://hellojiawa.github.io/2018/06/15/Android-studio-jar打包并混淆/</id>
+    <published>2018-06-15T08:36:51.000Z</published>
+    <updated>2018-06-15T09:08:17.286Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><p>新建一个Library module</p></li><li><p>修改build.gradle文件，新增:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  debug &#123;</span><br><span class="line">    minifyEnabled true</span><br><span class="line">    proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>同时配置proguard-rules.pro</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">  #指定压缩级别</span><br><span class="line">-optimizationpasses 5</span><br><span class="line"></span><br><span class="line">#表示混淆时不使用大小写混合类名</span><br><span class="line">-dontusemixedcaseclassnames</span><br><span class="line">#表示不跳过library中的非public的类</span><br><span class="line">-dontskipnonpubliclibraryclasses</span><br><span class="line">#打印混淆的详细信息</span><br><span class="line">-verbose</span><br><span class="line"></span><br><span class="line"># Optimization is turned off by default. Dex does not like code run</span><br><span class="line"># through the ProGuard optimize and preverify steps (and performs some</span><br><span class="line"># of these optimizations on its own).</span><br><span class="line">-dontoptimize</span><br><span class="line">##表示不进行校验,这个校验作用 在java平台上的</span><br><span class="line">-dontpreverify</span><br><span class="line"># Note that if you want to enable optimization, you cannot just</span><br><span class="line"># include optimization flags in your own project configuration file;</span><br><span class="line"># instead you will need to point to the</span><br><span class="line"># &quot;proguard-android-optimize.txt&quot; file instead of this one from your</span><br><span class="line"># project.properties file.</span><br><span class="line"></span><br><span class="line">#不跳过非公共的库的类成员</span><br><span class="line">-dontskipnonpubliclibraryclassmembers</span><br><span class="line"></span><br><span class="line">#混淆时采用的算法</span><br><span class="line">-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*</span><br><span class="line"></span><br><span class="line">#对外暴露public和protected方法，混淆private方法</span><br><span class="line">-keep public class com.sunflower.utils.MacUtils &#123; public protected *; &#125;</span><br></pre></td></tr></table></figure></li><li><p>同步gradle后在’build/intermediates/bundles/debug/classes.jar’即是混淆后的jar包</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;新建一个Library module&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改build.gradle文件，新增:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;
+      
+    
+    </summary>
+    
+      <category term="Android开发" scheme="https://hellojiawa.github.io/categories/Android%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Android旋转屏幕后国际化失效问题</title>
+    <link href="https://hellojiawa.github.io/2018/05/16/Android%E6%97%8B%E8%BD%AC%E5%B1%8F%E5%B9%95%E5%90%8E%E5%9B%BD%E9%99%85%E5%8C%96%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98/"/>
+    <id>https://hellojiawa.github.io/2018/05/16/Android旋转屏幕后国际化失效问题/</id>
+    <published>2018-05-16T05:57:01.000Z</published>
+    <updated>2018-05-16T06:05:15.514Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>app内部进行了国际化语言，在Activity调用了setRequestedOrientation()方法切换屏幕方向后，app的语言会切换到系统自带的语言，解决方法是重写Application的onConfigurationChanged()方法，在该方法里重新设置一下当前语言。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h3&gt;&lt;p&gt;app内部进行了国际化语言，在Activity调用了setRequestedOrientation()方法切换屏幕方向后，a
+      
+    
+    </summary>
+    
+      <category term="Android开发" scheme="https://hellojiawa.github.io/categories/Android%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>android原生分享获取资源失败问题</title>
+    <link href="https://hellojiawa.github.io/2018/04/25/android%E5%8E%9F%E7%94%9F%E5%88%86%E4%BA%AB%E8%8E%B7%E5%8F%96%E8%B5%84%E6%BA%90%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/"/>
+    <id>https://hellojiawa.github.io/2018/04/25/android原生分享获取资源失败问题/</id>
+    <published>2018-04-25T02:56:44.000Z</published>
+    <updated>2018-04-25T03:03:50.382Z</updated>
+    
+    <content type="html"><![CDATA[<p>  今天在调用系统分享api的时候，碰到“获取资源失败”问题，只能分享到QQ，其他平台都不行。解决办法是在获取Uri的时候，使用Uri.fromFile()</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Intent sendIntent = new Intent();</span><br><span class="line">sendIntent.setAction(Intent.ACTION_SEND);</span><br><span class="line">//如果调用Uri.parse()将获取不到资源</span><br><span class="line">sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(mSelectItem.get(0))));</span><br><span class="line">sendIntent.setType(&quot;image/*&quot;);</span><br><span class="line">startActivity(sendIntent);</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;  今天在调用系统分享api的时候，碰到“获取资源失败”问题，只能分享到QQ，其他平台都不行。解决办法是在获取Uri的时候，使用Uri.fromFile()&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;
+      
+    
+    </summary>
+    
+      <category term="Android开发" scheme="https://hellojiawa.github.io/categories/Android%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>jni</title>
+    <link href="https://hellojiawa.github.io/2018/04/18/jni/"/>
+    <id>https://hellojiawa.github.io/2018/04/18/jni/</id>
+    <published>2018-04-18T09:42:04.000Z</published>
+    <updated>2018-05-09T07:14:43.539Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h3><ul><li>Java传String到底层，利用GetStringUTFChars转换成字符指针数组，该过程需要分配内存，要进行一个判空操作：<br><img src="/image/jni_string.png" alt="jni"><br>同时需要释放上面操作所消耗的内存。</li><li>操作数组，env-&gt;getArrayElemetns 返回java数组的一个拷贝，优良的VM，会返回指向Java数组的一个直接的指针，并标记该内存区域，不允许被GC。</li><li>对象数组，使用Get/SetObjectArrayElement操作，对象数组只针对单个的元素，不提供类似Region的区域性操作。</li><li>获得类字节码：getObjectClass,FindClass</li><li>获得类的字段，getFieldID</li><li>获得某个对象的字段的值,getObjectField</li></ul><h3 id="添加日志"><a href="#添加日志" class="headerlink" title="添加日志"></a>添加日志</h3><p>#include &lt;android/log.h&gt;</p><p>#define LOGD(…) <strong>android_log_print(ANDROID_LOG_DEBUG,”TAG”,</strong>VA_ARGS__)</p><h3 id="类型签名"><a href="#类型签名" class="headerlink" title="类型签名"></a>类型签名</h3><ol><li><p>基本类型签名<br><img src="/image/jni_q.jpg" alt="签名"></p></li><li><p>函数签名,java支持函数重载，虽然参数不一样，但是方法名一样，因此jni层需要通过方法名和方法签名来唯一确定函数的调用<br>(参数类型签名) + 返回值类型签名,对于没有返回值的，用V表示<br>String test()                         Ljava/lang/String;<br>int test(int i ,Object object)        (ILjava/lang/Object;)I<br>void set(byte[] b)                    ([B)V        </p></li></ol><h3 id="c语言的指针"><a href="#c语言的指针" class="headerlink" title="c语言的指针"></a>c语言的指针</h3><ul><li>在声明指针中，“*”号表示所声明的变量是个指针</li><li>在指针使用时，“*”号表示操作指针所指向的内存空间中的值</li><li>当*p放在等号左边时，相当于给内存赋值</li><li><p>当*p放在等号右边时，相当于从内存取值</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int i = 3,j = 0;</span><br><span class="line">int *p = NULL;</span><br><span class="line">p = &amp;i;   //p指向i所在的内存</span><br><span class="line">*p = 5;   //将p所指向的内存里的值修改为5，此时i的值也为5</span><br><span class="line">j = *p;   //将p所指向的内存空间的值赋值给j</span><br></pre></td></tr></table></figure></li><li><p>如果函数的参数里包含指针，进入函数系统会重新创建一个指针变量，与该参数指向相同的变量，因此如果要想在函数内部想修改指针的指向，就要用到二级指针</p></li></ul><h3 id="定位jni运行时的错误日志-Fatal-signal-11-SIGSEGV"><a href="#定位jni运行时的错误日志-Fatal-signal-11-SIGSEGV" class="headerlink" title="定位jni运行时的错误日志(Fatal signal 11 (SIGSEGV))"></a>定位jni运行时的错误日志(Fatal signal 11 (SIGSEGV))</h3><ol><li>命令行输入： adb logcat &gt; log.txt，将会在项目更目录写入log.txt文件</li><li>再在命令行输入：ndk-stack -sym app/build/intermediates/cmake/debug/obj/armeabi-v7a -dump ./log.txt</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;参数传递&quot;&gt;&lt;a href=&quot;#参数传递&quot; class=&quot;headerlink&quot; title=&quot;参数传递&quot;&gt;&lt;/a&gt;参数传递&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;Java传String到底层，利用GetStringUTFChars转换成字符指针数组，该过程需要分配内存，要进
+      
+    
+    </summary>
+    
+      <category term="Android开发" scheme="https://hellojiawa.github.io/categories/Android%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>机器学习</title>
+    <link href="https://hellojiawa.github.io/2018/03/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://hellojiawa.github.io/2018/03/01/机器学习/</id>
+    <published>2018-03-01T11:12:28.000Z</published>
+    <updated>2018-03-19T06:14:47.554Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="专业术语"><a href="#专业术语" class="headerlink" title="专业术语"></a>专业术语</h3><ul><li>标签（y）–我们要预测的真实事物</li><li>特征(x)–描述数据的输入变量</li><li>样本–数据的特征实例。分为“有标签样本”和“无标签样本”</li><li>模型–特征与标签之间的关系。分为“回归模型”和“分类模型”</li><li>损失–衡量模型优劣的一个数值。平方损失（L<sub>2</sub>损失）,均方误差（MSE）</li></ul><h3 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h3><ul><li>y = b + w<sub>1</sub>x<sub>1</sub><br>y表示标签<br>b（bias）偏差<br>w<sub>1</sub>(weight)权重1<br>x<sub>1</sub>特征1</li></ul><h3 id="降低损失（Reducing-Loss）"><a href="#降低损失（Reducing-Loss）" class="headerlink" title="降低损失（Reducing Loss）"></a>降低损失（Reducing Loss）</h3><p>  如何降低损失？</p><ul><li>梯度下降法。降低损失本质上就是计算损失函数的最小值，也是计算最佳权重和偏差值，样本选取上不能采用单个样本，也不能选取所有样本，而是采用“小批量梯度下降法”，选取10-1000个样本。学习时，输入样本，得到一个损失函数关于w的函数，给权重设置一个初始值，求权重在该点的倒数即可得到在改点损失函数是下降还是上升的，然后以一定步进值在下降的方向变换权重值。</li><li>迭代方法。给权重和偏差设置一个初值，然后不断的迭代直到损失尽可能低。</li><li>学习速率。梯度下降法中，变化权重值时，将当前梯度乘以一个标量（步进），这个标量为学习速率，比如当前梯度为2，学习速率为0.25,则下一个权重点为1.5。</li></ul><h3 id="常用工具包Pandas"><a href="#常用工具包Pandas" class="headerlink" title="常用工具包Pandas"></a>常用工具包Pandas</h3><ul><li>导入 import pandas as pd</li><li>创建Series对象,population = pd.Series([100,200,300])</li><li>创建DataFrame对象,dataframe = pd.DataFrame(‘popu’:population)</li><li>显示dataframe前几条数据,dataframe.head()</li><li>访问数据,dataframe[‘popu’]返回一个列表,datafreame[‘popu’][1]返回某一列表的某个值</li><li>对单列Series进行转换,population.apply(lambda x : x &gt; 150)返回一个新的boolean型Series</li><li>将DataFrame重新排序，dataframe.reindex[0,1]，dataframe.reindex(np.random.permutation(dataframe.index))将dataframe随机排序</li></ul><h3 id="构建第一个模型"><a href="#构建第一个模型" class="headerlink" title="构建第一个模型"></a>构建第一个模型</h3><ol><li><p>定义特征值并配置特征列。在TensorFlow中，我们使用一种称为“特征列”的结构来表示特征的数据类型，“特征列”仅存储对特征数据的描述，不包含特征数据本身。<strong>特征列将原始数据与模型需要的数据联系起来</strong><br>定义一个数字型特征列：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.feature_column.numeric_column(&quot;total_rooms&quot;)</span><br></pre></td></tr></table></figure></li><li><p>定义目标(标签)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">targes = dataframe[&quot;median_house_value&quot;]</span><br></pre></td></tr></table></figure></li><li><p>配置LinearRegressor</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#使用梯度下降优化器训练模型</span><br><span class="line">my_optimizer = tf.train.GradientDescentOptimizer(lerning_rate = 0.000001)</span><br><span class="line">my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer,5.0)</span><br><span class="line">#使用特征列和优化器配置一个线性回归模型</span><br><span class="line">linear_regressor = tf.estimator.Linearregressor(feature_column=feature_column,optimizer=my_optimizer)</span><br></pre></td></tr></table></figure></li><li><p>定义输入函数,让特征与标签有个入口</p></li><li>调用模型的train()方法训练模型</li><li>将特征输入到模型，得到预算值，计算损失</li><li>识别离群值，截取离群值，重新训练</li></ol><h3 id="泛化"><a href="#泛化" class="headerlink" title="泛化"></a>泛化</h3><ul><li>如果一个模型尝试紧密拟合训练数据，但是不能很好的泛化新的数据，就会发生过拟合</li></ul><h3 id="训练集和测试集"><a href="#训练集和测试集" class="headerlink" title="训练集和测试集"></a>训练集和测试集</h3><ul><li>将单个数据集拆分成一个训练集和测试集</li><li>保证测试集满足如下两个条件：<ol><li>规模足够大，可产生具有统计意义的结果</li><li>能代表整个数据集</li></ol></li><li>训练过程中，不断调整超参数对训练集进行训练，来达成测试集的损失最小，这样有一个问题，那就是容易造成过拟合。解决方法：从训练集内部再划分一个验证集出来，在验证集的基础上不断调整参数，最后再在测试集上进行测试<br><img src="/image/data_tf.jpg" alt=""></li><li>机器学习中的调试通常是数据调试而不是代码调试</li></ul><h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3><ul><li>从原始数据创建特征的过程称为特征工程</li><li>良好特征具备的特性：<ol><li>以非零值的形式在数据集中多次出现</li><li>具备明确的含义，唯一性的值不适合做特征，如house_age:845465就不适合</li><li>特征不应该使用“魔术”值，超出范围的值</li><li>特征值不应该随时间而变化</li><li>不应包含离谱的离群值</li><li>分箱技巧</li></ol></li><li>特征有时候需要组合，在预测一个地区的房价时，单独把经度当作特征明显不恰当，如果把经度和纬度分别分箱，然后在交叉组合，这样得到的特征组合就表示地图上的特定区域了</li></ul><h3 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h3><ul><li>dataframe.corr()函数将返回完整的相关系数或协方差矩阵<br>-1.0：完全负相关<br>0.0：不相关<br>1.0：完全正相关</li><li>选取相关性强的特征作为输入</li><li>特征组合，特征组合是指将两个或多个输入特征相乘生成新的特征</li></ul><h3 id="正则化（Regularization）"><a href="#正则化（Regularization）" class="headerlink" title="正则化（Regularization）"></a>正则化（Regularization）</h3><p>  某个模型在训练过程中训练损失逐渐减小，但是验证损失最终增加，这时候就产生了过拟合。为了防止过拟合，我们可以降低复杂模型的复杂度（可以理解为wx的项数）来防止过拟合，这种过程称为正则化。也就是说并非以最小损失为目标，而是以最小损失和复杂度为目标。L2正则会使所有权重趋于0.0。</p><ul><li>L2正则化可以使权重趋于0.0，但是并不能使权重为0.0，在处罚高权重的时候是除以一个数</li><li>L1正则化可以使权重为0，在处罚高权重的时候是减去一个数，L1正则适用于将高维度的组合特征项权重降为0<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.train.FtrlOptimizer(learning_rate=learning_rate,ll_regularization_strength=regularization_strength)</span><br></pre></td></tr></table></figure></li></ul><h3 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h3><ul><li>逻辑回归模型要求feature_targets为1.0或0.0，同时将feature_column修改成bucketized_column(),再将创建模型函数修改成tf.estimator.LinearClassifier()即可</li><li>对数损失函数是逻辑回归的损失函数<br>LogLoss = ∑(-ylog(y’) - (1-y)log(1-y’))</li><li>阈值–逻辑判断中的临界值</li><li>准确率–预测结果与实际值一致 / 总样本数</li><li>精确率–预测结果为正的正确个数 / 预测结果为正的总个数（小男孩说狼来了中有多少次是对的）</li><li>召回率–正样本中被预测正确的个数 / 正样本总个数（在所有试图进入村中的狼中，我们发现了多少头）</li><li>真正例率（TPR）–真实的正例中，被预测为正例的比例，同召回率</li><li><p>假正例率（FPR）–真实的反例中，被预测为正例的比例</p></li><li><p>精确率和召回率是此消彼长的状态，提高阈值可能会提高精确率，同时可能会降低召回率</p></li><li>预测偏差–预测的偏差应约等于“观察平均值”</li></ul><h3 id="神经网络-Neural-Networks"><a href="#神经网络-Neural-Networks" class="headerlink" title="神经网络(Neural Networks)"></a>神经网络(Neural Networks)</h3><ul><li>激活函数–输入与输出之间添加一层非线性的函数</li><li>非线性激活函数可以学习非线性模型，如果一个模型具有2个隐藏层，那么学习模型需要一定的时间，而且学习结果有很大的不确定性，有时损失很低，有时差异很大</li><li>添加隐藏层和额外节点可以让模型结果看起来大致相同，每次运行结果差异较小<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#使用DNNRegressor类定义神经网络结构，hidden_units=[3,10]定义了两个隐藏层，第一层包括3个节点，第二层包括10个节点</span><br><span class="line">my_optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)</span><br><span class="line">my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer,5.0)</span><br><span class="line">DNNRegressor = tf.estimator.DNNRegressor(</span><br><span class="line">  feature_column=construct_feature_columns(training_examples),</span><br><span class="line">  hidden_units=[3,10])</span><br></pre></td></tr></table></figure></li></ul><h3 id="神经网络的优化"><a href="#神经网络的优化" class="headerlink" title="神经网络的优化"></a>神经网络的优化</h3><ul><li>使用线性缩放将特征标准化。<br><img src="/image/tf_linear_scale.jpg" alt=""><br>也可使用其他标准化函数，将特征以柱状图的形式显示，对数形式的特征适合使用log函数，均匀分布的使用线性缩放函数，部分有极端离群值的特征采用截取函数<br><img src="/image/tf_standard.png" alt=""></li><li><p>尝试使用其他的优化器。</p><ul><li><p>AdaGrad的核心是灵活的修改模型中每个系数的学习率，从而单调降低有效的学习率，该优化器对凸优化问题非常有效，这个优化器需要指定较大的学习率</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_optimizer=tf.train.AdagradOptimizer(learning_rate=0.0007)</span><br></pre></td></tr></table></figure></li><li><p>对于非凸优化问题，Adam有时比AdaGrad更有效</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">my_optimizer=tf.train.AdamOptimizer(learning_rate=0.0007)</span><br></pre></td></tr></table></figure></li></ul></li></ul><h3 id="多类别神经网络（Multi-Class-Neural-Networks）"><a href="#多类别神经网络（Multi-Class-Neural-Networks）" class="headerlink" title="多类别神经网络（Multi-Class Neural Networks）"></a>多类别神经网络（Multi-Class Neural Networks）</h3><ul><li>当要识别多个标签时，不能单独为每个标签创建一个二分类器。</li><li>在多类别识别问题中，Softmax为每个类别分配一个小数作为概率，所有类别的概率加起来和为1，这样更有利于收敛</li><li>Softmax层是紧挨着输出层之前的神经网络层，Softmax层必须和输出层拥有一样的节点数</li><li>Softmax的识别结果只有一个，如果要同时识别多个，得改用多个逻辑回归</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;专业术语&quot;&gt;&lt;a href=&quot;#专业术语&quot; class=&quot;headerlink&quot; title=&quot;专业术语&quot;&gt;&lt;/a&gt;专业术语&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;标签（y）–我们要预测的真实事物&lt;/li&gt;
+&lt;li&gt;特征(x)–描述数据的输入变量&lt;/li&gt;
+&lt;li&gt;样本–数据
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>视频播放器原理</title>
+    <link href="https://hellojiawa.github.io/2017/11/24/%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8%E5%8E%9F%E7%90%86/"/>
+    <id>https://hellojiawa.github.io/2017/11/24/视频播放器原理/</id>
+    <published>2017-11-24T03:07:06.000Z</published>
+    <updated>2017-11-24T06:27:53.681Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="视频播放步骤"><a href="#视频播放步骤" class="headerlink" title="视频播放步骤"></a>视频播放步骤</h3><div align="center"><img src="/image/video_step.jpg" alt=""></div><h3 id="流媒体协议"><a href="#流媒体协议" class="headerlink" title="流媒体协议"></a>流媒体协议</h3><p><img src="/image/liumeiti.png" alt=""></p><ul><li>在线播放时才需要用到流媒体协议。</li><li>流媒体协议是服务器与客户端之间通信遵循的规定。</li></ul><h3 id="封装格式"><a href="#封装格式" class="headerlink" title="封装格式"></a>封装格式</h3><p>  封装格式作用是把视频码流和音频码流按照一定的格式存储在一个文件中。<br>  <img src="/image/视频封装格式.png" alt=""></p><h3 id="视频编码"><a href="#视频编码" class="headerlink" title="视频编码"></a>视频编码</h3><p>视频编码的主要作用是将视频像素数据（RGB,YUV等）压缩成视频码流，从而降低视频传输的数据量。</p><ul><li>H.265</li><li>H.264</li><li>MPEG4</li><li>MPEG2</li><li>VP9</li><li>VP8</li><li>VC-1</li></ul><p>当前主流的编码标准是H.264，H.264仅仅是一个编码标准，而不是一个具体的编码器，H.264只是给编码器的实现提供参照用的。</p><h3 id="音频编码"><a href="#音频编码" class="headerlink" title="音频编码"></a>音频编码</h3><ul><li>AAC</li><li>AC-3</li><li>MP3</li><li>WMA</li></ul><h3 id="直播平台参数对比"><a href="#直播平台参数对比" class="headerlink" title="直播平台参数对比"></a>直播平台参数对比</h3><p>直播服务普通采用RTMP作为流媒体协议，封装格式，视频编码，音频编码，无一例外的使用了FLV + H.264 + AAC的组合，视频播放器方面，都使用了Flash播放器。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;视频播放步骤&quot;&gt;&lt;a href=&quot;#视频播放步骤&quot; class=&quot;headerlink&quot; title=&quot;视频播放步骤&quot;&gt;&lt;/a&gt;视频播放步骤&lt;/h3&gt;&lt;div align=&quot;center&quot;&gt;&lt;img src=&quot;/image/video_step.jpg&quot; alt=
+      
+    
+    </summary>
+    
+      <category term="音视频技术" scheme="https://hellojiawa.github.io/categories/%E9%9F%B3%E8%A7%86%E9%A2%91%E6%8A%80%E6%9C%AF/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>阅读记录</title>
+    <link href="https://hellojiawa.github.io/2017/10/20/%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/"/>
+    <id>https://hellojiawa.github.io/2017/10/20/阅读记录/</id>
+    <published>2017-10-20T02:44:38.000Z</published>
+    <updated>2017-11-11T09:38:58.852Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="策略思维"><a href="#策略思维" class="headerlink" title="策略思维"></a>策略思维</h3><ul><li>设身处地，从别人的角度观察这个世界。</li><li>向前展望，向后推理。这里说的是做出一系列行动与反行动。预计沿着你现在前进的道路走下去，最后会到达哪里。然后再往前倒推，要想达到自己的目的，之前应该怎样做选择。</li><li>囚徒困境。</li><li>决策树，没有其他人参与的一系列决策。</li><li>博弈树，与决策树相反。</li></ul><h3 id="影响力"><a href="#影响力" class="headerlink" title="影响力"></a>影响力</h3><ul><li>影响力的三个要素：固定行为模式（如好货不便宜），可利用性，有效性</li><li><p>六种影响里的场景：</p><ol><li>互惠原理，先给你一个好处，使你产生亏欠感，从而促成其目的（如免费服务与增值服务）。互惠让步，先让一步，从而使你让更大的一步。</li><li>承诺，每个人都想表现得“言行一致”,先诱使你认同某一观点，然后让你为此观点付出（珍爱生命倡议书），或者先诱使你做出某一决定，然后让你为此决定做出牺牲（在你决定购买88折的商品后告诉你该商品有其他的捆绑销售，此时你又不好意思放弃购买）。</li><li>社会认同，从众心理，你会不由自主的认同大家都认同的东西（淘宝刷评论，排队请托等）。</li><li>喜好，使你对某个对象产生喜好。权威性（明星代言）、相似性（星座？）、重复（广告重播）、称赞等让你对某个对象产生喜好。识别对方对方让你产生喜好的时机，避免被人套路。</li><li>权威，身份、地位、专业程度促使你服从。</li><li>稀缺，限量版，竞争心理（饥饿营销）</li></ol><h3 id="改变思维定式"><a href="#改变思维定式" class="headerlink" title="改变思维定式"></a>改变思维定式</h3><ul><li>心智模式：看待同一问题的不同角度。心智模式决定了我们看到世界的。混沌，察觉，醒觉，超越，不知不觉，后知后觉，当知当觉，先知先觉。</li></ul><h3 id="好好学习，个人知识管理精进指南"><a href="#好好学习，个人知识管理精进指南" class="headerlink" title="好好学习，个人知识管理精进指南"></a>好好学习，个人知识管理精进指南</h3><ul><li>认知深度，认知效率</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;策略思维&quot;&gt;&lt;a href=&quot;#策略思维&quot; class=&quot;headerlink&quot; title=&quot;策略思维&quot;&gt;&lt;/a&gt;策略思维&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;设身处地，从别人的角度观察这个世界。&lt;/li&gt;
+&lt;li&gt;向前展望，向后推理。这里说的是做出一系列行动与反行动。预
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 常用命令</title>
+    <link href="https://hellojiawa.github.io/2017/10/20/hexo-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>https://hellojiawa.github.io/2017/10/20/hexo-常用命令/</id>
+    <published>2017-10-20T02:23:39.000Z</published>
+    <updated>2017-10-20T02:26:50.839Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="hexo常用命令"><a href="#hexo常用命令" class="headerlink" title="hexo常用命令"></a>hexo常用命令</h3><ul><li>hexo init   #初始化</li><li>hexo n “文章名”    #新建文章</li><li>hexo g    #生成</li><li>hexo d    #部署</li><li>hexo s    #启动服务器预览</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;hexo常用命令&quot;&gt;&lt;a href=&quot;#hexo常用命令&quot; class=&quot;headerlink&quot; title=&quot;hexo常用命令&quot;&gt;&lt;/a&gt;hexo常用命令&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;hexo init   #初始化&lt;/li&gt;
+&lt;li&gt;hexo n “文章名”  
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Python基础</title>
+    <link href="https://hellojiawa.github.io/2017/10/20/Python%E5%9F%BA%E7%A1%80/"/>
+    <id>https://hellojiawa.github.io/2017/10/20/Python基础/</id>
+    <published>2017-10-20T02:20:40.000Z</published>
+    <updated>2018-03-06T06:58:08.943Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>len() 计算长度</li><li>str() 转换成字符串</li><li>.upper()  字符串大写</li><li>.lower()  字符串小写</li><li>raw_input(“提示语”)  输入</li><li>“my name is %s %s” % (“pp”,”!”)   置换符</li><li>datatime.now()  返回当前时间</li><li>not &gt; and &gt; or  布尔型运算符优先级</li><li>.isalpha()  判断字符串是否全小写</li><li>“Liupp”[1:3] -&gt; iup   字符串切割</li><li><p>from math import sqrt   导入指定函数</p></li><li><p>dict.items()  打印集合</p></li><li>dict.keys()   打印集合的键</li><li><p>dict.values()   打印集合的值</p></li><li><p>[x ** 2 for x in range(1,5) if x % 2 == 0] == [4,16]</p></li><li>list[start:end:stride]  按步进stride得到一个新列表</li><li>list[::-1]    反向遍历数组</li><li>lambda x: x % 3 == 0    匿名函数，返回一个boolean值,lambda定义了一个匿名函数，为了解决单行函数而存在</li><li><p>filter(lambda x: x% 2 == 0,range(6)) == [0,2,4]</p></li><li><p>bin(5)  5的二进制，0b101</p></li><li>open(“output.txt”,”r+”)   读写模式</li><li>with open(“text.txt”,”w”) as my_file 这个语句可以自动close()</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;len() 计算长度&lt;/li&gt;
+&lt;li&gt;str() 转换成字符串&lt;/li&gt;
+&lt;li&gt;.upper()  字符串大写&lt;/li&gt;
+&lt;li&gt;.lower()  字符串小写&lt;/li&gt;
+&lt;li&gt;raw_input(“提示语”)  输入&lt;/li&gt;
+&lt;li&gt;“my name 
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>greendao3.0一对多的应用</title>
+    <link href="https://hellojiawa.github.io/2017/10/18/greendao3.0%20%E4%B8%80%E5%AF%B9%E5%A4%9A%E7%9A%84%E5%BA%94%E7%94%A8/"/>
+    <id>https://hellojiawa.github.io/2017/10/18/greendao3.0 一对多的应用/</id>
+    <published>2017-10-18T04:24:10.000Z</published>
+    <updated>2017-10-19T11:56:23.024Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="配置gradle"><a href="#配置gradle" class="headerlink" title="配置gradle"></a>配置gradle</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 工程gradle文件</span><br><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">        mavenCentral() // add repository</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath &apos;com.android.tools.build:gradle:2.3.3&apos;</span><br><span class="line">        classpath &apos;org.greenrobot:greendao-gradle-plugin:3.2.2&apos; // add plugin</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 项目gradle文件</span><br><span class="line">apply plugin: &apos;com.android.application&apos;</span><br><span class="line">apply plugin: &apos;org.greenrobot.greendao&apos; // apply plugin</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile &apos;org.greenrobot:greendao:3.2.2&apos; // add library</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    greendao &#123;</span><br><span class="line">        schemaVersion 1 //数据库版本号</span><br><span class="line">        daoPackage &apos;com.sunflower.FindCam.dao&apos; //自动生成的工具类的包名</span><br><span class="line">        targetGenDir &apos;src/main/java&apos; //路径</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="编写实体类"><a href="#编写实体类" class="headerlink" title="编写实体类"></a>编写实体类</h3><p>greendao 一对多的应用。比如一个用户，可以有多条检查记录，不同的检查记录可同时属于一个用户，这里就可以建立两张表，这里称主表和副表，主表中可定义如下一个字段：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@ToMany(referencedJoinProperty = &quot;userId&quot;)</span><br><span class="line">private List&lt;LogBean&gt; mLogBeanList;</span><br></pre></td></tr></table></figure></p><p>用来定义单个用户的所有检查记录，同时在副表的实体中定义一个以”userId”命名的字段，当往副表中插入数据的时候，将副表实体的”userId”的值设置为主表中的id,即可完成关联，这样只要在调用主表的实体中调用getMLogBeanList()就会自动去副表中查询相关联的数据。<br>实体代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@Entity</span><br><span class="line">public class User &#123;</span><br><span class="line">    //id自动增长</span><br><span class="line">    @Id(autoincrement = true)</span><br><span class="line">    private Long id;</span><br><span class="line"></span><br><span class="line">    private int age;    //年龄</span><br><span class="line">    private int count;    //检查次数</span><br><span class="line">    private String name;    //名字</span><br><span class="line">    private String number;  //电话</span><br><span class="line">    private String address1;    //地址1</span><br><span class="line">    private String address2;    //地址2</span><br><span class="line">    private String date;    //最近检查日期</span><br><span class="line"></span><br><span class="line">    //一对多</span><br><span class="line">    @ToMany(referencedJoinProperty = &quot;userId&quot;)</span><br><span class="line">    private List&lt;LogBean&gt; mLogBeanList;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@Entity</span><br><span class="line">public class LogBean &#123;</span><br><span class="line">    @Id(autoincrement = true)</span><br><span class="line">    private Long id;</span><br><span class="line">    private Long userId;</span><br><span class="line"></span><br><span class="line">    private String date;</span><br><span class="line"></span><br><span class="line">    private boolean isPIC;</span><br><span class="line">    private String path;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><h3 id="MakeProject"><a href="#MakeProject" class="headerlink" title="MakeProject"></a>MakeProject</h3><p>编译项目，User类和LogBean会自动生成一些方法，同时在指定目录下会生成dao相关的类<br><img src="/image/dao.jpg" alt=""></p><h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">private void initDbHelp() &#123;</span><br><span class="line">    DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, &quot;users.db&quot;, null);</span><br><span class="line">    SQLiteDatabase db = helper.getWritableDatabase();</span><br><span class="line">    DaoMaster daoMaster = new DaoMaster(db);</span><br><span class="line">    DaoSession daoSession = daoMaster.newSession();</span><br><span class="line">    sUserDao = daoSession.getUserDao();</span><br><span class="line">    sLogDao = daoSession.getLogBeanDao();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><h3 id="两个坑"><a href="#两个坑" class="headerlink" title="两个坑"></a>两个坑</h3><ul><li>当我以一个用户的id向副表中插入了一条数据之后，再调用该用户实体的getList()方法，返回的集合size一直不变，这是因为greendao将集合缓存了，只有在调用getList()方法前先调用reset()方法，才会重新去查询副表里的数据。要注意在调用reset()方法后，用户实体的集合字段是重新创建的，如果有将这个集合传到Adapter里，再调用Adapter的notifyDataSetChanged()方法是不会去刷新数据的。</li><li>模糊查询时，需要在字符串前后加上”%”，否则匹配不到，如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mUsers = UfcApp.sUserDao.queryBuilder()</span><br><span class="line">        .where(UserDao.Properties.Name.like(&quot;%&quot; + name + &quot;%&quot;))</span><br><span class="line">        .list();</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;配置gradle&quot;&gt;&lt;a href=&quot;#配置gradle&quot; class=&quot;headerlink&quot; title=&quot;配置gradle&quot;&gt;&lt;/a&gt;配置gradle&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cl
+      
+    
+    </summary>
+    
+      <category term="Android开发" scheme="https://hellojiawa.github.io/categories/Android%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>android蓝牙开发</title>
+    <link href="https://hellojiawa.github.io/2017/09/28/android%E8%93%9D%E7%89%99%E5%BC%80%E5%8F%91/"/>
+    <id>https://hellojiawa.github.io/2017/09/28/android蓝牙开发/</id>
+    <published>2017-09-28T07:27:37.000Z</published>
+    <updated>2017-10-18T07:34:40.865Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在做一个蓝牙音箱的项目，该项目用到两个蓝牙，一个音频蓝牙（3.0）模块用来传音频，一个ble蓝牙（4.0）模块用来透传数据。项目做完，赶紧记录一下。</p><h3 id="扫描蓝牙"><a href="#扫描蓝牙" class="headerlink" title="扫描蓝牙"></a>扫描蓝牙</h3><p>扫描蓝牙有以下两种方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mBluetoothAdapter.startDiscovery();</span><br><span class="line">mBluetoothAdapter.startLeScan();</span><br></pre></td></tr></table></figure></p><p>第一种能扫描出所有蓝牙设备，扫描结果通过广播的方式回调。第二种方式只能扫描出BLE设备，扫描结果通过接口回调。注意除了给应用添加蓝牙权限，还需要额外添加位置权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot; /&gt;</span><br></pre></td></tr></table></figure></p><p>否则在6.0以上的手机上运行搜索不到蓝牙设备。</p><h3 id="连接蓝牙"><a href="#连接蓝牙" class="headerlink" title="连接蓝牙"></a>连接蓝牙</h3><p>连接蓝牙之前，需要先检查应用权限及打开蓝牙。<br>音频蓝牙连接步骤：<br><img src="/image/blue3.png" alt=""><br>BLE蓝牙连接步骤：<br><img src="/image/blue4.png" alt=""><br>由于这里同时使用到了两种蓝牙设备，为了简化连接操作，在每次连接时，软件优先去连接音频蓝牙，当音频蓝牙连接成功后，再自动去连ble蓝牙，再统一在广播里处理连接结果，这样就能做到只连接一次就可以同时连上两个蓝牙。关于蓝牙连接的状态，有如下需要注意的：</p><ul><li>音频蓝牙一旦被连接上，其他手机将不再搜索得到</li><li>ble蓝牙一旦被连接上，其他手机将不再搜索得到，但是调用了mBluetoothGatt.disconnect()后，其他手机可以搜索到（经测试，在华为P9上调用了disconnect后其他手机也搜索不到，必须到设置里取消配对后才可以搜索到）</li><li>音频蓝牙只要被连接过，之后上电会自动被连接</li><li>ble蓝牙只能通过代码连接才可以进行通信，在系统的设置里连接不能进行通信</li></ul><p>由于有时候音频蓝牙会自动连接，这个时候在应用里是扫描不到的，所有需要判断手机当前是否已连接上音频蓝牙，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">private BluetoothProfile.ServiceListener mConnectedListener = new BluetoothProfile.ServiceListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onServiceDisconnected(int profile) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void onServiceConnected(int profile, BluetoothProfile proxy) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            if (profile == BluetoothProfile.A2DP) &#123;</span><br><span class="line">                a2dp = (BluetoothA2dp) proxy;</span><br><span class="line">                List&lt;BluetoothDevice&gt; connectedDevices = proxy.getConnectedDevices();</span><br><span class="line">                for (BluetoothDevice device : connectedDevices) &#123;</span><br><span class="line">                    if (mName.replace(&quot;z&quot;, &quot;&quot;).equals(device.getName())) &#123;</span><br><span class="line">                        connectBleDevice();</span><br><span class="line">                        return;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                showToast(getString(R.string.connect_failed));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近在做一个蓝牙音箱的项目，该项目用到两个蓝牙，一个音频蓝牙（3.0）模块用来传音频，一个ble蓝牙（4.0）模块用来透传数据。项目做完，赶紧记录一下。&lt;/p&gt;
+&lt;h3 id=&quot;扫描蓝牙&quot;&gt;&lt;a href=&quot;#扫描蓝牙&quot; class=&quot;headerlink&quot; title=&quot;
+      
+    
+    </summary>
+    
+      <category term="Android开发" scheme="https://hellojiawa.github.io/categories/Android%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>随手记</title>
+    <link href="https://hellojiawa.github.io/2017/08/08/%E9%9A%8F%E8%AE%B0/"/>
+    <id>https://hellojiawa.github.io/2017/08/08/随记/</id>
+    <published>2017-08-08T09:02:28.000Z</published>
+    <updated>2018-05-08T02:58:53.484Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h3><ul><li>上一个activity的onPause执行完成后才会执行下一个activity的onResume，因此为了让第二个activity尽快显示出来，应该避免在onPause执行耗时操作。</li><li>Activity在意外关闭时，在onStop方法调用前会调用onSaveInstanceState保存状态，包括View的数据等，View里面也实现onSaveInstanceState 和 onRestoreInstanceState方法，比如EditText里面有一个内部类SaveState用来保存和回复edittext信息。</li><li>默认启动一个Activity是将这个activity启动到当前Context的任务栈，如果利用非Activity的Context启动一个Activity，需要添加一个new_Task。</li></ul><h3 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h3><ul><li>通常情况下，android中的多进程指的是一个应用程序中开启多进程的情况，可以在Androidmainfest文件中指定四大组件的process属性。</li><li>Android在绑定服务的时候，服务会返回一个Binder对象，该对象需要序列化，实现serializable。</li></ul><h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><ul><li>一个泛型类，对于同一个ThreadLocal对象，在不同线程访问该对象，可以返回不同的值。</li><li>ThreadLocal有一个内部类Values，Thread类有一个Values成员变量，ThreadLocal的set和get方法，会根据当前线程去拿到不同的对象。</li><li>在handler机制中，每个线程都有一个looper对象。其实对于Looper类来说，它有一个静态成员变量looper，该成员变量使用ThreadLocal修饰的，这样再不同线程调用sThreadLocal.get()方法，所获得的looper对象就是对应线程的。</li></ul><h3 id="java内存"><a href="#java内存" class="headerlink" title="java内存"></a>java内存</h3><ul><li>寄存器，在cpu内部，程序员无法控制。</li><li>堆栈，ram，用来存放引用，即句柄。</li><li>堆，heap，用来存放对象。</li><li>静态存储，也存在于ram，用static修饰。</li><li>常量池。</li><li>java虚拟机内存分为堆区、栈区、方法区、本地（native）方法栈、程序计数器，其中方法区内又有一块特殊的区域，常量池。常量在编译阶段就已经导入常量池了。</li></ul><h3 id="protected修饰与不写修饰符的区别"><a href="#protected修饰与不写修饰符的区别" class="headerlink" title="protected修饰与不写修饰符的区别"></a>protected修饰与不写修饰符的区别</h3><ul><li>作用范围都是包内可访问。区别：子类可使用父类的protected修饰的成员，不能使用父类无修饰符的成员。</li></ul><h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><ul><li>成员内部类</li><li>静态成员内部类</li><li>局域内部类</li><li>匿名内部类</li></ul><h3 id="内存泄露"><a href="#内存泄露" class="headerlink" title="内存泄露"></a>内存泄露</h3><ul><li>静态成员变量引起内存泄漏，static修饰的变量属于类所有，当static变量持有Activity对象时，Activity销毁并不会销毁对象。</li><li>单例模式引起内存泄露，懒汉式只有一个实例，也是静态的，类似第一条。</li><li>asyncTask引起内存泄漏，一般asynctask用作匿名内部类的形式，会持有外部Activity对象，当activity退出时，asyncTask还在执行子线程。</li><li>handler一般也是匿名内部类的形式存在，如果handler的Message还没处理完的话（比如handler.postDelay），activity此时退出了，那么这个activity对象仍然被handler对象持有。</li><li>属性动画一定要在onDestroy方法里要停止，不然会常驻内存。</li></ul><h3 id="so库的打包"><a href="#so库的打包" class="headerlink" title="so库的打包"></a>so库的打包</h3><ul><li>Android studio 默认会将jniLibs下的所有架构都打包进apk里面去，手机在安装app的时候选择一个架构，放在lib文件夹下，因此每个armeabi文件夹里的so库必须完整。</li></ul><h3 id="RecyclerView"><a href="#RecyclerView" class="headerlink" title="RecyclerView"></a>RecyclerView</h3><ul><li>RecyclerView在xml里不能用权重，否则createViewHolder会执行多次。</li></ul><h3 id="接口的成员变量为什么是public-static-final-修饰？"><a href="#接口的成员变量为什么是public-static-final-修饰？" class="headerlink" title="接口的成员变量为什么是public static final 修饰？"></a>接口的成员变量为什么是public static final 修饰？</h3><ul><li>接口就是用来继承的，就是为了让子类共享，因此为public。</li><li>接口的数据就是为了让所有子类共享，只需要一份，因此为static。</li><li>公共的数据，就不能在子类中更改，如果更改了，那么其他子类相应也更改了。</li></ul><h3 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h3><ul><li>不要在广播接收者里面开启线程，广播拥有自己的进程，当广播执行完receive（）方法后，所在进程会成为空进程，很容易被系统回收。</li></ul><h3 id="内存回收方式"><a href="#内存回收方式" class="headerlink" title="内存回收方式"></a>内存回收方式</h3><ul><li>标记清除法，标记出可回收内存，一次性回收。</li><li>复制算法，将内存分为两块，只使用其中一块，快满时将存活对象复制到另一块，完全清除当前这一块。</li><li>标记整理算法，标记存活内存，将存活内存移到最前边，清除后面所有。</li><li>分代收集算法，将堆分成老年代和轻年代，轻年代可回收对象比较多，采用复制算法，轻年代采用标记法。</li></ul><h3 id="java-io流"><a href="#java-io流" class="headerlink" title="java io流"></a>java io流</h3><p><img src="/image/io.png" alt="io"></p><h3 id="解决jcenter的库下载不下来的问题"><a href="#解决jcenter的库下载不下来的问题" class="headerlink" title="解决jcenter的库下载不下来的问题"></a>解决jcenter的库下载不下来的问题</h3><ul><li>讲”jcenter()”替换为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maven&#123;url&apos;http://maven.aliyun.com/nexus/content/groups/public/&apos;&#125;</span><br></pre></td></tr></table></figure></li></ul><h3 id="jvm内存回收机制"><a href="#jvm内存回收机制" class="headerlink" title="jvm内存回收机制"></a>jvm内存回收机制</h3><ul><li>每个线程都有独立的虚拟机栈，用来保存线程本地变量名和局部变量值。</li><li>对象回收有两种方式，引用计数法和可达性分析法。引用计数法是指对象每被引用一次计数就加一，当计数为0时说明可被回收，这种方式的弊端是A对象和B对象交叉引用时不会被回收。</li></ul><h3 id="技能点"><a href="#技能点" class="headerlink" title="技能点"></a>技能点</h3><ul><li>二维码识别</li><li>百度地图，高德地图</li><li>蓝牙3.0 4.0开发</li><li>greendao 3.0 一对多的应用</li><li>关键字离线语音识别</li><li>图像跟踪jni接口编写</li></ul><h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><ul><li>泛型类似于形参，分为泛型类、泛型接口、泛型方法</li><li>泛型只在编译阶段有效，不在运行阶段生效</li><li>泛型形参为具体类时才有约束作用，其他字母时传任何类都可以</li><li>public与返回值中间添加<t>的方法才是泛型方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public &lt;T&gt; T getObject()&#123;&#125;</span><br></pre></td></tr></table></figure></t></li></ul><h3 id="查找中文字符串"><a href="#查找中文字符串" class="headerlink" title="查找中文字符串"></a>查找中文字符串</h3><ul><li>find in path 输入如下内容：^((?!(*|//)).)+[\u4e00-\u9fa5]</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Activity&quot;&gt;&lt;a href=&quot;#Activity&quot; class=&quot;headerlink&quot; title=&quot;Activity&quot;&gt;&lt;/a&gt;Activity&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;上一个activity的onPause执行完成后才会执行下一个activity的
+      
+    
+    </summary>
+    
+      <category term="Android开发" scheme="https://hellojiawa.github.io/categories/Android%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>mark down</title>
+    <link href="https://hellojiawa.github.io/2017/03/10/markdown%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>https://hellojiawa.github.io/2017/03/10/markdown常用命令/</id>
+    <published>2017-03-10T03:48:44.000Z</published>
+    <updated>2017-10-18T06:22:29.719Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="markdown常用命令"><a href="#markdown常用命令" class="headerlink" title="markdown常用命令"></a>markdown常用命令</h3><h1 id="一级标题-一级标题"><a href="#一级标题-一级标题" class="headerlink" title="一级标题(# 一级标题)"></a>一级标题(# 一级标题)</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><ul><li>第一种无序列表（- 文字）</li></ul><ul><li>第二种无序列表（* 文字）</li></ul><ol><li>有序列表1（1. 文字）</li><li>有序列表2（2. 文字）</li></ol><h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><blockquote><p>这是引用（&gt; 这是引用）</p></blockquote><h3 id="插入链接"><a href="#插入链接" class="headerlink" title="插入链接"></a>插入链接</h3><p><a href="http://baidu.com" target="_blank" rel="noopener">这是百度链接</a></p><h3 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h3><p><img src="/image/test.jpg" alt="测试"></p><h3 id="粗体与斜体"><a href="#粗体与斜体" class="headerlink" title="粗体与斜体"></a>粗体与斜体</h3><p><strong>这是粗体</strong>（**号包裹文字）<br><em>这是斜体</em>（*号包裹文字）</p><h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><hr><h3 id="代码框"><a href="#代码框" class="headerlink" title="代码框"></a>代码框</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] arg)&#123;</span><br><span class="line">    int a = 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;markdown常用命令&quot;&gt;&lt;a href=&quot;#markdown常用命令&quot; class=&quot;headerlink&quot; title=&quot;markdown常用命令&quot;&gt;&lt;/a&gt;markdown常用命令&lt;/h3&gt;&lt;h1 id=&quot;一级标题-一级标题&quot;&gt;&lt;a href=&quot;#一级标题
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Git</title>
+    <link href="https://hellojiawa.github.io/2017/03/10/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>https://hellojiawa.github.io/2017/03/10/Git常用命令/</id>
+    <published>2017-03-10T03:42:58.000Z</published>
+    <updated>2017-10-18T06:22:24.390Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h3><ul><li>移除单个文件的版本管理： git rm –cached fileName。或者，添加.gitignore文件，再执行清除缓存命令：git rm -r –cached</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Git-常用命令&quot;&gt;&lt;a href=&quot;#Git-常用命令&quot; class=&quot;headerlink&quot; title=&quot;Git 常用命令&quot;&gt;&lt;/a&gt;Git 常用命令&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;移除单个文件的版本管理： git rm –cached fileName。或者，
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+</feed>
