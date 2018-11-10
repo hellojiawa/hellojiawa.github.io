@@ -6,19 +6,42 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hellojiawa.github.io/"/>
-  <updated>2018-11-07T09:37:37.001Z</updated>
+  <updated>2018-11-10T08:21:31.066Z</updated>
   <id>https://hellojiawa.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>设计模式</title>
+    <title>openGL</title>
+    <link href="https://hellojiawa.github.io/2018/11/09/openGL/"/>
+    <id>https://hellojiawa.github.io/2018/11/09/openGL/</id>
+    <published>2018-11-09T06:23:24.000Z</published>
+    <updated>2018-11-10T08:21:31.066Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="OpenGL-Es-2-0过程及理解"><a href="#OpenGL-Es-2-0过程及理解" class="headerlink" title="OpenGL Es 2.0过程及理解"></a>OpenGL Es 2.0过程及理解</h3><p>读取顶点数据——执行顶点着色器——组装图元——光栅化图元——执行片元着色器——写入帧缓冲区——显示到屏幕上。</p><ul><li>OpenGL作为本地库直接运行在硬件上，没有虚拟机，也没有垃圾回收或者内存压缩。在Java层定义图像的数据需要能被OpenGL存取，因此，需要把内存从Java堆复制到本地堆。</li><li>顶点着色器是针对每个顶点都会执行的程序，是确定每个顶点的位置。同理，片元着色器是针对每个片元都会执行的程序，确定每个片元的颜色。</li><li>着色器需要进行编译，然后链接到OpenGL程序中。一个OpenGL的程序就是把一个顶点着色器和一个片段着色器链接在一起变成单个对象。</li></ul><h3 id="OpenGL-开发软件编写顺序"><a href="#OpenGL-开发软件编写顺序" class="headerlink" title="OpenGL 开发软件编写顺序"></a>OpenGL 开发软件编写顺序</h3><ol><li>java 代码创建顶点的数据</li><li>用ByteBuffer顶点数据从java内存复制到本地内存</li><li>创建顶点着色器代码和片元着色器代码并编译</li><li>顶点着色器和片元着色器总是一起工作的，需要链接顶点着色器和片元着色器，生成一个program</li><li>获取glsl程序里定义参数的location</li><li>利用location将第2步的数据与第4步的program关联起来，告诉program从哪里读取顶点数据</li><li>在onDrawFrame（）方法里填充片元着色器数据</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;OpenGL-Es-2-0过程及理解&quot;&gt;&lt;a href=&quot;#OpenGL-Es-2-0过程及理解&quot; class=&quot;headerlink&quot; title=&quot;OpenGL Es 2.0过程及理解&quot;&gt;&lt;/a&gt;OpenGL Es 2.0过程及理解&lt;/h3&gt;&lt;p&gt;读取顶点数据
+      
+    
+    </summary>
+    
+      <category term="其他" scheme="https://hellojiawa.github.io/categories/%E5%85%B6%E4%BB%96/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>java设计原则</title>
     <link href="https://hellojiawa.github.io/2018/11/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <id>https://hellojiawa.github.io/2018/11/07/设计模式/</id>
     <published>2018-11-07T03:09:06.000Z</published>
-    <updated>2018-11-07T09:37:37.001Z</updated>
+    <updated>2018-11-09T06:37:02.242Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="单一设计原则"><a href="#单一设计原则" class="headerlink" title="单一设计原则"></a>单一设计原则</h3><ul><li>定义：一个类负责一项职责</li><li>优点：<br>可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；<br>提高类的可读性，提高系统的可维护性；<br>变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。</li><li>问题：类P在最初设计的时候是遵从单一原则的，后来由于某种原因导致需求变更，需要将类P的职责细分为粒度更低的P1、P2，这个时候就会面临拆分类P或者不拆分两种选择，如果不拆分则会违反单一职责的原则，具体要看实际情况进行处理。</li></ul><h3 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h3><ul><li>定义：子类可以扩展父类的功能，但不能改变父类原有的功能。</li><li>优点：子类如果覆盖父类原有的方法，在代码逻辑稍微复杂的时候，容易造成代码运行“失控”，因为这相当于修改了父类的原有功能。如果有这种需求，可以将父类的该方法定义成抽象的。</li></ul><h3 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h3><ul><li>定义：高层模块不应该依赖底层模块，二者都应该依赖抽象；抽象不应该依赖细节，细节应该依赖抽象。其核心思想在于面向接口编程，当高层模块依赖于几个功能相似的类时，应该将这几个相似的类抽象出来，直接依赖于该抽象。</li></ul><h3 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h3><h3 id="迪米特原则"><a href="#迪米特原则" class="headerlink" title="迪米特原则"></a>迪米特原则</h3><ul><li>定义：一个对象应该对其他对象保持最少的了解。迪米特法则的初衷是降低类的耦合，类与类之间是有耦合关系的，在全局变量、方法参数、方法返回值里出现的类我们称之为直接朋友，在局部变量里通过“直接朋友”获取到的类称为间接朋友，迪米特原则就是为了避免出现间接朋友，应该将对间接朋友的操作封装到该“直接朋友”的内部。</li></ul><h3 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h3><ul><li>定义：对修改关闭，对扩展开放，。即软件需要变化时，应尽量通过扩展来实现变化，而不是通过修改现有代码来实现。只要做好上面5种原则，那么设计出来的程序就是符合开闭原则的。</li></ul>]]></content>
+    <content type="html"><![CDATA[<h3 id="单一设计原则"><a href="#单一设计原则" class="headerlink" title="单一设计原则"></a>单一设计原则</h3><ul><li>定义：一个类负责一项职责</li><li>优点：<br>可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；<br>提高类的可读性，提高系统的可维护性；<br>变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。</li><li>问题：类P在最初设计的时候是遵从单一原则的，后来由于某种原因导致需求变更，需要将类P的职责细分为粒度更低的P1、P2，这个时候就会面临拆分类P或者不拆分两种选择，如果不拆分则会违反单一职责的原则，具体要看实际情况进行处理。</li></ul><h3 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h3><ul><li>定义：父类出现的地方可以完全用子类来替换，父类不能拥有比子类更多的功能。子类可以扩展父类的功能，但不能改变父类原有的功能。里氏替换原则核心在于继承和多态。</li><li>优点：子类如果覆盖父类原有的方法，在代码逻辑稍微复杂的时候，容易造成代码运行“失控”，因为这相当于修改了父类的原有功能。如果有这种需求，可以将父类的该方法定义成抽象的。</li></ul><h3 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h3><ul><li>定义：高层模块不应该依赖底层模块，二者都应该依赖抽象；抽象不应该依赖细节，细节应该依赖抽象。其核心思想在于面向接口编程，当高层模块依赖于几个功能相似的类时，应该将这几个相似的类抽象出来，直接依赖于该抽象。</li></ul><h3 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h3><h3 id="迪米特原则"><a href="#迪米特原则" class="headerlink" title="迪米特原则"></a>迪米特原则</h3><ul><li>定义：一个对象应该对其他对象保持最少的了解。迪米特法则的初衷是降低类的耦合，类与类之间是有耦合关系的，在全局变量、方法参数、方法返回值里出现的类我们称之为直接朋友，在局部变量里通过“直接朋友”获取到的类称为间接朋友，迪米特原则就是为了避免出现间接朋友，应该将对间接朋友的操作封装到该“直接朋友”的内部。</li></ul><h3 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h3><ul><li>定义：对修改关闭，对扩展开放，。即软件需要变化时，应尽量通过扩展来实现变化，而不是通过修改现有代码来实现。只要做好上面5种原则，那么设计出来的程序就是符合开闭原则的。</li></ul>]]></content>
     
     <summary type="html">
     

@@ -91,14 +91,14 @@
 
 <meta name="description" content="单一设计原则 定义：一个类负责一项职责 优点：可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；提高类的可读性，提高系统的可维护性；变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。 问题：类P在最初设计的时候是遵从单一原则的，后来由于某种原因导致需求变更，需要将类P的职责细分为粒度更低的P1、P2，这个时候就会">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式">
+<meta property="og:title" content="java设计原则">
 <meta property="og:url" content="https://hellojiawa.github.io/2018/11/07/设计模式/index.html">
 <meta property="og:site_name" content="LiuPing">
 <meta property="og:description" content="单一设计原则 定义：一个类负责一项职责 优点：可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；提高类的可读性，提高系统的可维护性；变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。 问题：类P在最初设计的时候是遵从单一原则的，后来由于某种原因导致需求变更，需要将类P的职责细分为粒度更低的P1、P2，这个时候就会">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-07T09:37:37.001Z">
+<meta property="og:updated_time" content="2018-11-09T06:37:02.242Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="设计模式">
+<meta name="twitter:title" content="java设计原则">
 <meta name="twitter:description" content="单一设计原则 定义：一个类负责一项职责 优点：可以降低类的复杂度，一个类只负责一项职责，其逻辑肯定要比负责多项职责简单的多；提高类的可读性，提高系统的可维护性；变更引起的风险降低，变更是必然的，如果单一职责原则遵守的好，当修改一个功能时，可以显著降低对其他功能的影响。 问题：类P在最初设计的时候是遵从单一原则的，后来由于某种原因导致需求变更，需要将类P的职责细分为粒度更低的P1、P2，这个时候就会">
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <title> 设计模式 | LiuPing </title>
+  <title> java设计原则 | LiuPing </title>
 </head>
 
 <body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -314,7 +314,7 @@
             
             
               
-                设计模式
+                java设计原则
               
             
           </h1>
@@ -379,7 +379,7 @@
 
           
           
-             <span id="/2018/11/07/设计模式/" class="leancloud_visitors" data-flag-title="设计模式">
+             <span id="/2018/11/07/设计模式/" class="leancloud_visitors" data-flag-title="java设计原则">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,7 +414,7 @@
 <li>问题：类P在最初设计的时候是遵从单一原则的，后来由于某种原因导致需求变更，需要将类P的职责细分为粒度更低的P1、P2，这个时候就会面临拆分类P或者不拆分两种选择，如果不拆分则会违反单一职责的原则，具体要看实际情况进行处理。</li>
 </ul>
 <h3 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h3><ul>
-<li>定义：子类可以扩展父类的功能，但不能改变父类原有的功能。</li>
+<li>定义：父类出现的地方可以完全用子类来替换，父类不能拥有比子类更多的功能。子类可以扩展父类的功能，但不能改变父类原有的功能。里氏替换原则核心在于继承和多态。</li>
 <li>优点：子类如果覆盖父类原有的方法，在代码逻辑稍微复杂的时候，容易造成代码运行“失控”，因为这相当于修改了父类的原有功能。如果有这种需求，可以将父类的该方法定义成抽象的。</li>
 </ul>
 <h3 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h3><ul>
@@ -466,6 +466,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/11/09/openGL/" rel="prev" title="openGL">
+                openGL <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -490,7 +494,7 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2018/11/07/设计模式/" data-title="设计模式" data-url="https://hellojiawa.github.io/2018/11/07/设计模式/">
+      <div class="ds-thread" data-thread-key="2018/11/07/设计模式/" data-title="java设计原则" data-url="https://hellojiawa.github.io/2018/11/07/设计模式/">
       </div>
     
   </div>
@@ -537,7 +541,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
