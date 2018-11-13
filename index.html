@@ -411,9 +411,10 @@
       
         
           
-          OpenGL Es 2.0过程及理解读取顶点数据——执行顶点着色器——组装图元——光栅化图元——执行片元着色器——写入帧缓冲区——显示到屏幕上。
-
-OpenGL作为本地库直接运行在硬件上，没有虚拟机，也没有垃圾回收或者内存压缩。在Java层定义图像的数据需要能被OpenGL存取，因此，需要把内存从J
+          GLSL语言的三种变量类型attribute uniform varying
+attribute 只能在vertex sharder中使用，通过glVertexAttribPointer()赋值
+uniform 相当于常量，通过glUniform**赋值
+varying 是vertex与fragme
           ...
           <!--noindex-->
           <div class="post-button text-center">

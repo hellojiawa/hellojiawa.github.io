@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://hellojiawa.github.io/"/>
-  <updated>2018-11-10T08:21:31.066Z</updated>
+  <updated>2018-11-13T09:30:14.975Z</updated>
   <id>https://hellojiawa.github.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
@@ -16,15 +16,15 @@
     <link href="https://hellojiawa.github.io/2018/11/09/openGL/"/>
     <id>https://hellojiawa.github.io/2018/11/09/openGL/</id>
     <published>2018-11-09T06:23:24.000Z</published>
-    <updated>2018-11-10T08:21:31.066Z</updated>
+    <updated>2018-11-13T09:30:14.975Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="OpenGL-Es-2-0过程及理解"><a href="#OpenGL-Es-2-0过程及理解" class="headerlink" title="OpenGL Es 2.0过程及理解"></a>OpenGL Es 2.0过程及理解</h3><p>读取顶点数据——执行顶点着色器——组装图元——光栅化图元——执行片元着色器——写入帧缓冲区——显示到屏幕上。</p><ul><li>OpenGL作为本地库直接运行在硬件上，没有虚拟机，也没有垃圾回收或者内存压缩。在Java层定义图像的数据需要能被OpenGL存取，因此，需要把内存从Java堆复制到本地堆。</li><li>顶点着色器是针对每个顶点都会执行的程序，是确定每个顶点的位置。同理，片元着色器是针对每个片元都会执行的程序，确定每个片元的颜色。</li><li>着色器需要进行编译，然后链接到OpenGL程序中。一个OpenGL的程序就是把一个顶点着色器和一个片段着色器链接在一起变成单个对象。</li></ul><h3 id="OpenGL-开发软件编写顺序"><a href="#OpenGL-开发软件编写顺序" class="headerlink" title="OpenGL 开发软件编写顺序"></a>OpenGL 开发软件编写顺序</h3><ol><li>java 代码创建顶点的数据</li><li>用ByteBuffer顶点数据从java内存复制到本地内存</li><li>创建顶点着色器代码和片元着色器代码并编译</li><li>顶点着色器和片元着色器总是一起工作的，需要链接顶点着色器和片元着色器，生成一个program</li><li>获取glsl程序里定义参数的location</li><li>利用location将第2步的数据与第4步的program关联起来，告诉program从哪里读取顶点数据</li><li>在onDrawFrame（）方法里填充片元着色器数据</li></ol>]]></content>
+    <content type="html"><![CDATA[<h3 id="GLSL语言的三种变量类型attribute-uniform-varying"><a href="#GLSL语言的三种变量类型attribute-uniform-varying" class="headerlink" title="GLSL语言的三种变量类型attribute uniform varying"></a>GLSL语言的三种变量类型attribute uniform varying</h3><ol><li>attribute 只能在vertex sharder中使用，通过glVertexAttribPointer()赋值</li><li>uniform 相当于常量，通过glUniform**赋值</li><li>varying 是vertex与fragment之间传递数据用的，一般vertex shader修改varying的值，然后fragment sharder 自动更新该值。</li></ol><h3 id="OpenGL-Es-2-0过程及理解"><a href="#OpenGL-Es-2-0过程及理解" class="headerlink" title="OpenGL Es 2.0过程及理解"></a>OpenGL Es 2.0过程及理解</h3><p>读取顶点数据——执行顶点着色器——组装图元——光栅化图元——执行片元着色器——写入帧缓冲区——显示到屏幕上。</p><ul><li>OpenGL作为本地库直接运行在硬件上，没有虚拟机，也没有垃圾回收或者内存压缩。在Java层定义图像的数据需要能被OpenGL存取，因此，需要把内存从Java堆复制到本地堆。</li><li>顶点着色器是针对每个顶点都会执行的程序，是确定每个顶点的位置。同理，片元着色器是针对每个片元都会执行的程序，确定每个片元的颜色。</li><li>着色器需要进行编译，然后链接到OpenGL程序中。一个OpenGL的程序就是把一个顶点着色器和一个片段着色器链接在一起变成单个对象。</li></ul><h3 id="OpenGL-开发软件编写顺序"><a href="#OpenGL-开发软件编写顺序" class="headerlink" title="OpenGL 开发软件编写顺序"></a>OpenGL 开发软件编写顺序</h3><ol><li>java 代码创建顶点的数据</li><li>用ByteBuffer顶点数据从java内存复制到本地内存</li><li>创建顶点着色器代码和片元着色器代码并编译</li><li>顶点着色器和片元着色器总是一起工作的，需要链接顶点着色器和片元着色器，生成一个program</li><li>获取glsl程序里定义参数的location</li><li>利用location将第2步的数据与第4步的program关联起来，告诉program从哪里读取顶点数据</li><li>在onDrawFrame（）方法里填充片元着色器数据</li></ol><h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><ul><li>透视投影的原理是：利用矩阵将坐标的z分量反映到w分量，从而实现“远近效果”</li><li>焦距-焦点到视椎体近端平面的距离称为焦距，焦距大小影响小端与大端的比例，以及对应的视野</li><li>调用Matrix.perspectiveM()设置投影矩阵 </li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h3 id=&quot;OpenGL-Es-2-0过程及理解&quot;&gt;&lt;a href=&quot;#OpenGL-Es-2-0过程及理解&quot; class=&quot;headerlink&quot; title=&quot;OpenGL Es 2.0过程及理解&quot;&gt;&lt;/a&gt;OpenGL Es 2.0过程及理解&lt;/h3&gt;&lt;p&gt;读取顶点数据
+        &lt;h3 id=&quot;GLSL语言的三种变量类型attribute-uniform-varying&quot;&gt;&lt;a href=&quot;#GLSL语言的三种变量类型attribute-uniform-varying&quot; class=&quot;headerlink&quot; title=&quot;GLSL语言的三种变量类型att
       
     
     </summary>
