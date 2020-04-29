@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="LiuPing">
 <meta property="og:description" content="GLSL语言的三种变量类型attribute uniform varying attribute 只能在vertex sharder中使用，通过glVertexAttribPointer()赋值 uniform 相当于常量，通过glUniform**赋值 varying 是vertex与fragment之间传递数据用的，一般vertex shader修改varying的值，然后fragment s">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-13T09:30:14.975Z">
+<meta property="og:updated_time" content="2019-12-31T02:50:21.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="openGL">
 <meta name="twitter:description" content="GLSL语言的三种变量类型attribute uniform varying attribute 只能在vertex sharder中使用，通过glVertexAttribPointer()赋值 uniform 相当于常量，通过glUniform**赋值 varying 是vertex与fragment之间传递数据用的，一般vertex shader修改varying的值，然后fragment s">
@@ -431,8 +431,11 @@
 <h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><ul>
 <li>透视投影的原理是：利用矩阵将坐标的z分量反映到w分量，从而实现“远近效果”</li>
 <li>焦距-焦点到视椎体近端平面的距离称为焦距，焦距大小影响小端与大端的比例，以及对应的视野</li>
-<li>调用Matrix.perspectiveM()设置投影矩阵 </li>
+<li>调用Matrix.perspectiveM()设置投影矩阵</li>
 </ul>
+<h3 id="FBO"><a href="#FBO" class="headerlink" title="FBO"></a>FBO</h3><p>OpenGL渲染管线的最后一个阶段，就是帧缓冲区（FrameBuffer）。对于帧缓冲区，Android系统中默认有一个缓冲区，英文名称window-system-provided framebuffer，用于屏幕显示。 当GPU往显示缓冲区写入数据后，屏幕会显示这个缓冲区的内容。这是一个生产者消费者模型，大多数情况下能满足我们的需求。<br>而对于Android某些特殊需求来说，比如给视频加水印后渲染保存，比如Camera实时滤镜。 这些都需要把视频的原始data经过一定的处理后保存、或者再进行显示。</p>
+<p>对于一般的Camera来说，我们用于预览/录制的Surface都是由Android系统提供给OpenGL渲染的帧缓冲区，OpenGL的所有渲染结果都是直接到达到帧缓冲区，这是on-screen的渲染方式；<br>而对于滤镜相机、贴纸相机来说，使用帧缓冲区对象，OpenGL可以将原先绘制到窗口提供的帧缓冲区重定向到FBO之中。</p>
+<p>FBO是一个挂接器，类似画家画画用的托架；其中FBO只能挂接两种对象，纹理图像 和 渲染图像，这个理解就是画家准备创作作品前，在托架上放的是油画纸还是水墨纸（纹理），或者根本不是放画纸，放的是木板雕刻（渲染模板）。最后我们等画家创作出他的艺术品后，直接搬到到展示区，呈现給大家</p>
 
       
     </div>
@@ -622,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GLSL语言的三种变量类型attribute-uniform-varying"><span class="nav-number">1.</span> <span class="nav-text">GLSL语言的三种变量类型attribute uniform varying</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenGL-Es-2-0过程及理解"><span class="nav-number">2.</span> <span class="nav-text">OpenGL Es 2.0过程及理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenGL-开发软件编写顺序"><span class="nav-number">3.</span> <span class="nav-text">OpenGL 开发软件编写顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透视投影"><span class="nav-number">4.</span> <span class="nav-text">透视投影</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GLSL语言的三种变量类型attribute-uniform-varying"><span class="nav-number">1.</span> <span class="nav-text">GLSL语言的三种变量类型attribute uniform varying</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenGL-Es-2-0过程及理解"><span class="nav-number">2.</span> <span class="nav-text">OpenGL Es 2.0过程及理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenGL-开发软件编写顺序"><span class="nav-number">3.</span> <span class="nav-text">OpenGL 开发软件编写顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透视投影"><span class="nav-number">4.</span> <span class="nav-text">透视投影</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FBO"><span class="nav-number">5.</span> <span class="nav-text">FBO</span></a></li></ol></div>
             
 
           </div>
@@ -645,7 +648,7 @@
         <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

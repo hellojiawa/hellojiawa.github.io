@@ -97,7 +97,7 @@
 <meta property="og:description" content="Activity 上一个activity的onPause执行完成后才会执行下一个activity的onResume，因此为了让第二个activity尽快显示出来，应该避免在onPause执行耗时操作。 Activity在意外关闭时，在onStop方法调用前会调用onSaveInstanceState保存状态，包括View的数据等，View里面也实现onSaveInstanceState 和 onR">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://hellojiawa.github.io/image/io.png">
-<meta property="og:updated_time" content="2018-05-08T02:58:53.484Z">
+<meta property="og:updated_time" content="2020-04-17T11:48:52.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="随手记">
 <meta name="twitter:description" content="Activity 上一个activity的onPause执行完成后才会执行下一个activity的onResume，因此为了让第二个activity尽快显示出来，应该避免在onPause执行耗时操作。 Activity在意外关闭时，在onStop方法调用前会调用onSaveInstanceState保存状态，包括View的数据等，View里面也实现onSaveInstanceState 和 onR">
@@ -425,12 +425,17 @@
 <li>在handler机制中，每个线程都有一个looper对象。其实对于Looper类来说，它有一个静态成员变量looper，该成员变量使用ThreadLocal修饰的，这样再不同线程调用sThreadLocal.get()方法，所获得的looper对象就是对应线程的。</li>
 </ul>
 <h3 id="java内存"><a href="#java内存" class="headerlink" title="java内存"></a>java内存</h3><ul>
+<li>java虚拟机内存分为堆区、栈区、方法区、本地（native）方法栈、程序计数器，其中方法区内又有一块特殊的区域，常量池。常量在编译阶段就已经导入常量池了。</li>
 <li>寄存器，在cpu内部，程序员无法控制。</li>
 <li>堆栈，ram，用来存放引用，即句柄。</li>
 <li>堆，heap，用来存放对象。</li>
 <li>静态存储，也存在于ram，用static修饰。</li>
 <li>常量池。</li>
-<li>java虚拟机内存分为堆区、栈区、方法区、本地（native）方法栈、程序计数器，其中方法区内又有一块特殊的区域，常量池。常量在编译阶段就已经导入常量池了。</li>
+</ul>
+<h3 id="java内存模型与线程"><a href="#java内存模型与线程" class="headerlink" title="java内存模型与线程"></a>java内存模型与线程</h3><ul>
+<li>每个线程都有自己单独的内存区域，对于线程间公共的变量，每个线程都有一个拷贝。CPU在执行任务时，首先需要将公有数据复制到快速缓存区，运算完成后再刷回主内存，这就导致了线程之间的同步问题。</li>
+<li>除了缓存一致性问题，还存在另外一种硬件问题，指令重排，为了使CPU内部运算单元能够被充分利用，处理器可能会对字节码指令重新排序处理。</li>
+<li>Java内存模型：本质上就是一套规范，在这套规范中有一个最重要的happens-before原则，A操作的结果对于B操作一定可见，则A happens-befor B，比如给共有变量添加volatile关键字修饰，给方法添加synchronized同步等。</li>
 </ul>
 <h3 id="protected修饰与不写修饰符的区别"><a href="#protected修饰与不写修饰符的区别" class="headerlink" title="protected修饰与不写修饰符的区别"></a>protected修饰与不写修饰符的区别</h3><ul>
 <li>作用范围都是包内可访问。区别：子类可使用父类的protected修饰的成员，不能使用父类无修饰符的成员。</li>
@@ -494,6 +499,11 @@
 </ul>
 <h3 id="查找中文字符串"><a href="#查找中文字符串" class="headerlink" title="查找中文字符串"></a>查找中文字符串</h3><ul>
 <li>find in path 输入如下内容：^((?!(*|//)).)+[\u4e00-\u9fa5]</li>
+</ul>
+<h3 id="android类加载"><a href="#android类加载" class="headerlink" title="android类加载"></a>android类加载</h3><ul>
+<li>android系统无法直接运行.class文件，系统将.class文件打包成.dex文件，.dex文件主要由PathClassLoader和DexClassLoader加载</li>
+<li>PathClassLoader用来加载系统apk和安装在手机里apk的dex</li>
+<li>DexClassLoader可以加载任何路径包含Dex的jar和apk，热修复就是用DexClassLoader来实现的</li>
 </ul>
 
       
@@ -688,7 +698,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity"><span class="nav-number">1.</span> <span class="nav-text">Activity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程"><span class="nav-number">2.</span> <span class="nav-text">多进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">3.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java内存"><span class="nav-number">4.</span> <span class="nav-text">java内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#protected修饰与不写修饰符的区别"><span class="nav-number">5.</span> <span class="nav-text">protected修饰与不写修饰符的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部类"><span class="nav-number">6.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄露"><span class="nav-number">7.</span> <span class="nav-text">内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#so库的打包"><span class="nav-number">8.</span> <span class="nav-text">so库的打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RecyclerView"><span class="nav-number">9.</span> <span class="nav-text">RecyclerView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口的成员变量为什么是public-static-final-修饰？"><span class="nav-number">10.</span> <span class="nav-text">接口的成员变量为什么是public static final 修饰？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广播"><span class="nav-number">11.</span> <span class="nav-text">广播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存回收方式"><span class="nav-number">12.</span> <span class="nav-text">内存回收方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-io流"><span class="nav-number">13.</span> <span class="nav-text">java io流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决jcenter的库下载不下来的问题"><span class="nav-number">14.</span> <span class="nav-text">解决jcenter的库下载不下来的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm内存回收机制"><span class="nav-number">15.</span> <span class="nav-text">jvm内存回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技能点"><span class="nav-number">16.</span> <span class="nav-text">技能点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型"><span class="nav-number">17.</span> <span class="nav-text">泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找中文字符串"><span class="nav-number">18.</span> <span class="nav-text">查找中文字符串</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity"><span class="nav-number">1.</span> <span class="nav-text">Activity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多进程"><span class="nav-number">2.</span> <span class="nav-text">多进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">3.</span> <span class="nav-text">ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java内存"><span class="nav-number">4.</span> <span class="nav-text">java内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java内存模型与线程"><span class="nav-number">5.</span> <span class="nav-text">java内存模型与线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#protected修饰与不写修饰符的区别"><span class="nav-number">6.</span> <span class="nav-text">protected修饰与不写修饰符的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部类"><span class="nav-number">7.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存泄露"><span class="nav-number">8.</span> <span class="nav-text">内存泄露</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#so库的打包"><span class="nav-number">9.</span> <span class="nav-text">so库的打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RecyclerView"><span class="nav-number">10.</span> <span class="nav-text">RecyclerView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口的成员变量为什么是public-static-final-修饰？"><span class="nav-number">11.</span> <span class="nav-text">接口的成员变量为什么是public static final 修饰？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广播"><span class="nav-number">12.</span> <span class="nav-text">广播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存回收方式"><span class="nav-number">13.</span> <span class="nav-text">内存回收方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#java-io流"><span class="nav-number">14.</span> <span class="nav-text">java io流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决jcenter的库下载不下来的问题"><span class="nav-number">15.</span> <span class="nav-text">解决jcenter的库下载不下来的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm内存回收机制"><span class="nav-number">16.</span> <span class="nav-text">jvm内存回收机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技能点"><span class="nav-number">17.</span> <span class="nav-text">技能点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型"><span class="nav-number">18.</span> <span class="nav-text">泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找中文字符串"><span class="nav-number">19.</span> <span class="nav-text">查找中文字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#android类加载"><span class="nav-number">20.</span> <span class="nav-text">android类加载</span></a></li></ol></div>
             
 
           </div>
@@ -711,7 +721,7 @@
         <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
