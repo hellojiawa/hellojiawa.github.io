@@ -96,7 +96,7 @@
 <meta property="og:site_name" content="LiuPing">
 <meta property="og:description" content="GLSL语言的三种变量类型attribute uniform varying attribute 只能在vertex sharder中使用，通过glVertexAttribPointer()赋值 uniform 相当于常量，通过glUniform**赋值 varying 是vertex与fragment之间传递数据用的，一般vertex shader修改varying的值，然后fragment s">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-31T02:50:21.146Z">
+<meta property="og:updated_time" content="2020-05-13T11:35:01.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="openGL">
 <meta name="twitter:description" content="GLSL语言的三种变量类型attribute uniform varying attribute 只能在vertex sharder中使用，通过glVertexAttribPointer()赋值 uniform 相当于常量，通过glUniform**赋值 varying 是vertex与fragment之间传递数据用的，一般vertex shader修改varying的值，然后fragment s">
@@ -415,8 +415,12 @@
 </ol>
 <h3 id="OpenGL-Es-2-0过程及理解"><a href="#OpenGL-Es-2-0过程及理解" class="headerlink" title="OpenGL Es 2.0过程及理解"></a>OpenGL Es 2.0过程及理解</h3><p>读取顶点数据——执行顶点着色器——组装图元——光栅化图元——执行片元着色器——写入帧缓冲区——显示到屏幕上。</p>
 <ul>
-<li>OpenGL作为本地库直接运行在硬件上，没有虚拟机，也没有垃圾回收或者内存压缩。在Java层定义图像的数据需要能被OpenGL存取，因此，需要把内存从Java堆复制到本地堆。</li>
-<li>顶点着色器是针对每个顶点都会执行的程序，是确定每个顶点的位置。同理，片元着色器是针对每个片元都会执行的程序，确定每个片元的颜色。</li>
+<li><p>内存拷贝。OpenGL作为本地库直接运行在硬件上，没有虚拟机，也没有垃圾回收或者内存压缩。在Java层定义图像的数据需要能被OpenGL存取，因此，需要把内存从Java堆复制到本地堆。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">private FloatBuffer floatBuffer;</span><br><span class="line">float[] vertexData = new float[16];</span><br><span class="line">floatBuffer = ByteBuffer.allocateDirect(vertexData.length * Constant.BYTES_PRE_FLOAT)</span><br><span class="line">                        .order(ByteOrder.nativeOrder())</span><br><span class="line">                        .asFloatBuffer()</span><br><span class="line">                        .put(floatBuffer);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>光栅化技术。手机屏幕都是由一个个像素点构成的，光栅化过程就是把每个点、直线和三角形分解成大量的小片元，每个片元都包含单一的纯色。</p>
+</li>
+<li>顶点着色器是针对每个顶点都会执行的程序，是确定每个顶点的位置。同理，片元着色器是针对每个片元都会执行的程序，片元着色器确定每个片元的颜色。</li>
 <li>着色器需要进行编译，然后链接到OpenGL程序中。一个OpenGL的程序就是把一个顶点着色器和一个片段着色器链接在一起变成单个对象。</li>
 </ul>
 <h3 id="OpenGL-开发软件编写顺序"><a href="#OpenGL-开发软件编写顺序" class="headerlink" title="OpenGL 开发软件编写顺序"></a>OpenGL 开发软件编写顺序</h3><ol>
@@ -475,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/21/隐私政策/" rel="prev" title="隐私政策">
+                隐私政策 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -547,7 +555,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
