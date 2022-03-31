@@ -3,3 +3,6 @@
 android 文件存储
 1. 28及以下的版本、30及以上的版本，获取存储权限后，可以向公共存储目录通过File保存文件，29不行。
 2. 28以上的版本，可以通过绝对路径contentResolver.insert方式保存文件，无需存储权限，无需目标文件夹存在。28及以下的版本，需要存储权限，而且需要文件夹存在。
+
+
+MediaRecorder在结合Camera 2录制视频的时候，录像文件超过一定大小会自动回调setOnInfoListener（）方法，并且调用setMaxFileSize（）设置最大文件大小后无效。
