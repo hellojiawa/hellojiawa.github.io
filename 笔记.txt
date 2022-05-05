@@ -9,3 +9,6 @@ MediaRecorder在结合Camera 2录制视频的时候，录像文件超过4G会自
 
 
 获取当前界面的activity路径：adb shell "dumpsys activity top | grep ACTIVITY | tail -n 1"
+
+
+activity A执行帧动画时跳转到activity B，再从activity B返回到activity A，此时B的onStop()方法会延迟10s执行，是由于帧动画持续绘制造成的。
